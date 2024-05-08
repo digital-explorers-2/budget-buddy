@@ -8,3 +8,4 @@
 
 # FUNCTIONALITIES
  -  Sign up and log in securely
+ -  Log expenses with details like date, category, amount and description
