@@ -1,3 +1,5 @@
-# Budget Buddy
-## Authors
+# BUDGET-BUDDY
+## AUTHORS
+- Aicha.
 - Hellen Ndathi
+
