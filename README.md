@@ -1,3 +1,3 @@
 # Budget Buddy
 ## Authors:
-- Pauline Wang'ombe
+- Pauline Wang'ombe.
