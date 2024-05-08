@@ -11,4 +11,4 @@
 - Write new expenses
 - Delete old expenses (if necessary)
 - Update expenses
-
+- Sign up and log in securely
