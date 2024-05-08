@@ -1,4 +1,4 @@
 # BUDGET-BUDDY
 ## AUTHORS
-- Aicha
+- Aicha.
 
