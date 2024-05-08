@@ -1,3 +1,5 @@
 # BUDGET-BUDDY
-## Authors
+## AUTHORS
+- Aicha.
+- Hellen Ndathi
 - Unika
