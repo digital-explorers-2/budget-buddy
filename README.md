@@ -4,9 +4,14 @@
 - Hellen Ndathi
 - Unika
 - Martin Wachira
-- Pauline Wang'ombe.
+- Pauline Wang'ombe
 
-# FUNCTIONALITY
-Synchronize expense data in real-time across devices.
 
+
+
+
+=======
+# FUNCTIONALITIES
+ -  Sign up and log in securely
+ - Synchronize expense data in real-time across devices.
 
