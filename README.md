@@ -1,2 +1,7 @@
-# Branch Author
-1. Martin Wachira.
+# BUDGET-BUDDY
+## AUTHORS
+- Aicha.
+- Hellen Ndathi
+- Unika
+- Martin Wachira
+
