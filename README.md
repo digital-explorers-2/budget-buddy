@@ -8,19 +8,17 @@
 - Martin Wachira.
 - Pauline Wang'ombe.
 
-
 ## Functionalities
 
-- *Budget Tracking:* Users can track their budgets by logging transactions, specifying categories, and dates.
+- _Budget Tracking:_ Users can track their budgets by logging transactions, specifying categories, and dates.
 
-- *Transaction Management:* The app allows users to view, add, and remove transactions. Transactions can be filtered based on date, category, and type.
+- _Transaction Management:_ The app allows users to view, add, and remove transactions. Transactions can be filtered based on date, category, and type.
 
-- *Category Management:* Users can manage transaction categories, including creating, deleting, and dynamically adding them while entering transactions.
+- _Category Management:_ Users can manage transaction categories, including creating, deleting, and dynamically adding them while entering transactions.
 
-- *Currency Management:* Users can switch between currencies and manage them within the application.
+- _Currency Management:_ Users can switch between currencies and manage them within the application.
 
-- *History and Analytics:* The app provides a history section for organizing transactions by month or year. It also includes analytics features, such as balance statistics and graphical representation using Recharts.
-
+- _History and Analytics:_ The app provides a history section for organizing transactions by month or year. It also includes analytics features, such as balance statistics and graphical representation using Recharts.
 
 ## Wireframes
 
@@ -34,6 +32,7 @@
 ![Expenses modal](https://github.com/digital-explorers-2/budget-buddy/assets/85700294/2e0af9bb-eef9-4656-bf02-476b5768fb44)
 
 ## Supabase Database
+
 URL can be found below
 
 [Database](https://supabase.com/dashboard/project/bmrxxxosvmvsdnzglyde)
