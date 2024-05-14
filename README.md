@@ -23,6 +23,7 @@
 
 
 ## Wireframes
+
 ![Sign Up](https://github.com/digital-explorers-2/budget-buddy/assets/85700294/ca2e42cb-5361-4acc-82f2-81870392ed12)
 ![Login](https://github.com/digital-explorers-2/budget-buddy/assets/85700294/da246c94-227e-45dc-97c3-b6b61d0e4b27)
 ![Currency](https://github.com/digital-explorers-2/budget-buddy/assets/85700294/6f7ca477-9d9d-41cf-a109-3eebbbda9a6c)
