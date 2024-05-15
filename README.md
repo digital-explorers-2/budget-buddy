@@ -2,10 +2,10 @@
 
 ## AUTHORS
 
-- Aicha Mbongo.
-- Hellen Ndathi.
-- Unika Mureithi.
-- Martin Wachira.
+- Aicha.
+- Hellen Ndathi
+- Unika
+- Martin Wachira
 - Pauline Wang'ombe.
 
 
