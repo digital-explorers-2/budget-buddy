@@ -34,4 +34,3 @@
 ![Expenses modal](https://github.com/digital-explorers-2/budget-buddy/assets/85700294/2e0af9bb-eef9-4656-bf02-476b5768fb44)
 
 
-new
