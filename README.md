@@ -33,4 +33,7 @@
 ![Income modal](https://github.com/digital-explorers-2/budget-buddy/assets/85700294/78fc78a9-41b1-4823-b97c-27e3d3051328)
 ![Expenses modal](https://github.com/digital-explorers-2/budget-buddy/assets/85700294/2e0af9bb-eef9-4656-bf02-476b5768fb44)
 
-new
+## Supabase Database
+URL can be found below
+
+[Database](https://supabase.com/dashboard/project/bmrxxxosvmvsdnzglyde)
