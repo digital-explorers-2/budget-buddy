@@ -4,6 +4,12 @@ declare namespace JSX {
     }
   }
   
+  type ExpenseFormData = {
+    description: string;
+    amount: number;
+    category: string;
+    date: string;
+  };
   type Transaction = {
     id: number;
     description: string;
