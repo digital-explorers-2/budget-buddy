@@ -10,10 +10,3 @@ declare namespace JSX {
     category: string;
     date: string;
   };
-  type Transaction = {
-    id: number;
-    description: string;
-    date: string;
-    type: string;
-    amount: number;
-};
