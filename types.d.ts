@@ -4,3 +4,10 @@ declare namespace JSX {
     }
   }
   
+  type Transaction = {
+    id: number;
+    description: string;
+    date: string;
+    type: string;
+    amount: number;
+};
