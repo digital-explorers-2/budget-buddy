@@ -10,8 +10,7 @@ import Header from "@/components/Header";
 import { redirect } from "next/navigation";
 import Logo from "@/components/Logo";
 
-
-export  async function ProtectedPage() {
+export async function ProtectedPage() {
   const supabase = createClient();
 
   const {
@@ -41,18 +40,17 @@ export default function RootLayout({
   return (
     <html lang="en" className={GeistSans.className}>
       <body className="bg-background text-foreground">
-      <header className="flex items-center border-b border-b-foreground/10 h-16">
+        <header className="flex items-center border-b border-b-foreground/10 h-16">
           <div className="w-1/5 flex justify-center">
             <Logo />
           </div>
           <div className="w-4/5 flex justify-between items-center p-3">
-      <NavigationMenuDemo />
-          <div className="w-full justify-end  flex justify-between items-center p-3 text-sm">
-           
-            <div className="ml-auto">
-            <AuthButton />
+            <NavigationMenuDemo />
+            <div className="w-full flex justify-end items-center p-3 text-sm">
+              <div className="ml-auto">
+                <AuthButton />
+              </div>
             </div>
-          </div>
           </div>
         </header>
 
