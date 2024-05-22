@@ -1,6 +1,6 @@
 import { GeistSans } from "geist/font/sans";
 import "./globals.css";
-import { NavigationMenuDemo } from "@/components/main-nav";
+import Navbar from "@/components/Navbar";
 import Footer from "@/components/footer";
 import DeployButton from "@/components/DeployButton";
 import AuthButton from "@/components/AuthButton";
@@ -10,8 +10,7 @@ import Header from "@/components/Header";
 import { redirect } from "next/navigation";
 import Logo from "@/components/Logo";
 
-
-export  async function ProtectedPage() {
+export async function ProtectedPage() {
   const supabase = createClient();
 
   const {
@@ -41,23 +40,23 @@ export default function RootLayout({
   return (
     <html lang="en" className={GeistSans.className}>
       <body className="bg-background text-foreground">
-      <header className="flex items-center border-b border-b-foreground/10 h-16">
+        <header className="flex items-center border-b border-b-foreground/10 h-16">
           <div className="w-1/5 flex justify-center">
             <Logo />
           </div>
           <div className="w-4/5 flex justify-between items-center p-3">
-      <NavigationMenuDemo />
-          <div className="w-full justify-end  flex justify-between items-center p-3 text-sm">
-           
-            <div className="ml-auto">
-            <AuthButton />
+            <NavigationMenuDemo />
+            <div className="w-full flex justify-end items-center p-3 text-sm">
+              <div className="ml-auto">
+                <AuthButton />
+              </div>
             </div>
-          </div>
           </div>
         </header>
 
         <main className="min-h-screen flex flex-col items-center">
-          {children}
+        <Navbar/>
+        {children}
         </main>
         <Footer />
       </body>
