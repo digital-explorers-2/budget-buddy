@@ -37,9 +37,6 @@ export function IncomeTransaction() {
         <Card className="w-[400px]">
           <CardHeader>
             <CardTitle>Create a new income transaction</CardTitle>
-            <CardDescription>
-              Select your default currency for transactions
-            </CardDescription>
           </CardHeader>
           <CardContent>
             <form>
