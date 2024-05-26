@@ -1,6 +1,5 @@
 import { GeistSans } from "geist/font/sans";
 import "./globals.css";
-import Navbar from "@/components/Navbar";
 import Footer from "@/components/footer";
 import DeployButton from "@/components/DeployButton";
 import AuthButton from "@/components/AuthButton";
@@ -55,7 +54,6 @@ export default function RootLayout({
         </header>
 
         <main className="min-h-screen flex flex-col items-center">
-        <Navbar/>
         {children}
         </main>
         <Footer />
