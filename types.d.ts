@@ -7,6 +7,17 @@ declare namespace JSX {
   type ExpenseFormData = {
     description: string;
     amount: number;
+};
+
+interface Category {
+  id: number;
+  name: string;
+}
+
+interface Currency {
+  id: number;
+  name: string;
+}
     category: string;
     date: string;
-  };
+  

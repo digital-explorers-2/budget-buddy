@@ -14,7 +14,7 @@
     "@radix-ui/react-select": "^2.0.0",
     "@radix-ui/react-slot": "^1.0.2",
     "@supabase/auth-helpers-nextjs": "^0.10.0",
-    "@supabase/ssr": "latest",
+    "@supabase/ssr": "^0.3.0",
     "@supabase/supabase-js": "latest",
     "autoprefixer": "10.4.17",
     "class-variance-authority": "^0.7.0",
@@ -24,6 +24,9 @@
 
     "next": "^14.2.3",
     "postcss": "8.4.33",
+    "react": "^18.3.1",
+    "react-dom": "^18.2.0",
+    "react-hook-form": "^7.51.4",
     "react": "^18.2.0",
     "react-date-range": "^2.0.1",
     "react-dom": "18.2.0",
@@ -35,11 +38,13 @@
     "tailwindcss-animate": "^1.0.7",
     "typescript": "5.3.3",
     "zod": "^3.23.8"
+    "typescript": "5.3.3",
+    "zod": "^3.23.8"
   },
   "devDependencies": {
     "@types/node": "20.11.5",
-    "@types/react": "18.2.48",
-    "@types/react-dom": "18.2.18",
+    "@types/react": "^18.2.48",
+    "@types/react-dom": "^18.2.18",
     "encoding": "^0.1.13"
   }
 }
