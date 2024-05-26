@@ -11,13 +11,7 @@ import {
     TableHead
 } from '@/components/ui/table';
 
-type Transaction = {
-    id: number;
-    description: string;
-    date: string;
-    type: string;
-    amount: number;
-};
+
 
 const Transactions: FC = () => {
     // Define the JSON array directly in the component
@@ -29,9 +23,9 @@ const Transactions: FC = () => {
     ];
 
     return (
-        <div className="flex flex-col min-h-screen bg-gray-200 text-black">
-            
-            <main className="flex flex-col flex-1 p-4">
+        <div className="flex flex-col min-h-screen w-full bg-gray-200 text-black">
+             
+            <main className="flex flex-col flex-1 p-4 w-full">
                 <h1 className="text-2xl mb-4">Transactions History</h1>
                 <div className="flex justify-between mb-4">
                     <Button variant="outline" className="border-gray-400">+ Category</Button>
