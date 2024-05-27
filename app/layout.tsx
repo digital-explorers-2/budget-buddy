@@ -45,7 +45,6 @@ export default function RootLayout({
           </div>
           <div className="w-4/5 flex justify-between items-center p-3">
             
-            
             <div className="w-full flex justify-end items-center p-3 text-sm">
               <div className="ml-auto">
                 <AuthButton />
