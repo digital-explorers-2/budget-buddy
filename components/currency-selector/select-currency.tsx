@@ -15,7 +15,19 @@ import {
   SelectItem,
   SelectTrigger,
   SelectValue,
-} from "@/components/ui/select"
+} from "@/components/ui/select";
+import {
+    Command,
+    CommandDialog,
+    CommandEmpty,
+    CommandGroup,
+    CommandInput,
+    CommandItem,
+    CommandList,
+    CommandSeparator,
+    CommandShortcut,
+  } from "@/components/ui/command";
+  
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
   
 
