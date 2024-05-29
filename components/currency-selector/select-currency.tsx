@@ -1,8 +1,8 @@
-"use client";
+"use client"
 
-import * as React from "react";
-import useMediaQuery from "@/hooks/use-media-query";
-import { Button } from "@/components/ui/button";
+import * as React from "react"
+import useMediaQuery from "@/hooks/use-media-query"
+import { Button } from "@/components/ui/button"
 import {
   Card,
   CardContent,
@@ -10,7 +10,7 @@ import {
   CardFooter,
   CardHeader,
   CardTitle,
-} from "@/components/ui/card";
+} from "@/components/ui/card"
 import {
   Drawer,
   DrawerClose,
@@ -20,12 +20,12 @@ import {
   DrawerHeader,
   DrawerTitle,
   DrawerTrigger,
-} from "@/components/ui/drawer";
+} from "@/components/ui/drawer"
 import {
   Popover,
   PopoverContent,
   PopoverTrigger,
-} from "@/components/ui/popover";
+} from "@/components/ui/popover"
 import {
   Command,
   CommandEmpty,
@@ -33,14 +33,14 @@ import {
   CommandInput,
   CommandItem,
   CommandList,
-} from "@/components/ui/command";
+} from "@/components/ui/command"
 
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
 
 type Currency = {
-  value: string;
-  label: string;
-};
+  value: string
+  label: string
+}
 
 const currencies: Currency[] = [
   {
@@ -63,13 +63,13 @@ const currencies: Currency[] = [
     value: "KES",
     label: "Kenyan Shilling",
   },
-];
+]
 
 export function SelectCurrency() {
-  const [open, setOpen] = React.useState(false);
-  const isDesktop = useMediaQuery("(min-width: 768px)");
+  const [open, setOpen] = React.useState(false)
+  const isDesktop = useMediaQuery("(min-width: 768px)")
   const [selectedCurrency, setSelectedCurrency] =
-    React.useState<Currency | null>(null);
+    React.useState<Currency | null>(null)
 
   if (isDesktop) {
     return (
@@ -101,11 +101,12 @@ export function SelectCurrency() {
             </CardHeader>
             <CardContent>
               <form>
-                <Popover open={open} onOpenChange={setOpen}>
+                <Popover
+                  open={open}
+                  onOpenChange={setOpen}
+                >
                   <PopoverTrigger asChild>
-                    <Button
-                      className="w-full bg-black text-white"
-                    >
+                    <Button className="w-full bg-black text-white">
                       {selectedCurrency ? (
                         <>{selectedCurrency.value}</>
                       ) : (
@@ -113,7 +114,10 @@ export function SelectCurrency() {
                       )}
                     </Button>
                   </PopoverTrigger>
-                  <PopoverContent className="w-[200px] p-0" align="start">
+                  <PopoverContent
+                    className="w-[200px] p-0"
+                    align="start"
+                  >
                     <CurrencyList
                       setOpen={setOpen}
                       setSelectedCurrency={setSelectedCurrency}
@@ -124,11 +128,16 @@ export function SelectCurrency() {
             </CardContent>
           </Card>
           <div className="w-full max-w-[700px]">
-            <Button variant="outline" className="w-full bg-white text-black hover:bg-green-500">Confirm</Button>
+            <Button
+              variant="outline"
+              className="w-full bg-white text-black hover:bg-green-500"
+            >
+              Confirm
+            </Button>
           </div>
         </div>
       </div>
-    );
+    )
   }
   return (
     <div className="flex flex-col w-full h-full min-h-screen items-center justify-center space-y-6">
@@ -162,11 +171,12 @@ export function SelectCurrency() {
             <form>
               <div className="grid w-full items-center gap-4">
                 <div className="flex flex-col space-y-1.5 relative">
-                  <Drawer open={open} onOpenChange={setOpen}>
+                  <Drawer
+                    open={open}
+                    onOpenChange={setOpen}
+                  >
                     <DrawerTrigger asChild>
-                      <Button
-                        className="w-full bg-black text-white"
-                      >
+                      <Button className="w-full bg-black text-white">
                         {selectedCurrency ? (
                           <>{selectedCurrency.value}</>
                         ) : (
@@ -189,19 +199,21 @@ export function SelectCurrency() {
           </CardContent>
         </Card>
         <div className="w-full max-w-[900px]">
-          <Button className="w-full bg-black text-white hover:bg-green-500">Confirm</Button>
+          <Button className="w-full bg-black text-white hover:bg-green-500">
+            Confirm
+          </Button>
         </div>
       </div>
     </div>
-  );
+  )
 }
 
 function CurrencyList({
   setOpen,
   setSelectedCurrency,
 }: {
-  setOpen: (open: boolean) => void;
-  setSelectedCurrency: (status: Currency | null) => void;
+  setOpen: (open: boolean) => void
+  setSelectedCurrency: (status: Currency | null) => void
 }) {
   return (
     <Command>
@@ -209,17 +221,16 @@ function CurrencyList({
       <CommandList>
         <CommandEmpty>No results found.</CommandEmpty>
         <CommandGroup>
-          {currencies.map((status) => (
+          {currencies.map(status => (
             <CommandItem
-            className="hover:bg-gray-300"
+              className="hover:bg-gray-300"
               key={status.value}
               value={status.value}
-              onSelect={(value) => {
+              onSelect={value => {
                 setSelectedCurrency(
-                  currencies.find((priority) => priority.value === value) ||
-                    null
-                );
-                setOpen(false);
+                  currencies.find(priority => priority.value === value) || null,
+                )
+                setOpen(false)
               }}
             >
               {status.label}
@@ -228,5 +239,5 @@ function CurrencyList({
         </CommandGroup>
       </CommandList>
     </Command>
-  );
+  )
 }
