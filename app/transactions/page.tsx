@@ -1,9 +1,9 @@
-"use client";
+"use client"
 
-import Transactions from './Transactions';
+import Transactions from "./Transactions"
 
 const TransactionsPage = () => {
-    return <Transactions />;
-};
+  return <Transactions />
+}
 
-export default TransactionsPage;
+export default TransactionsPage

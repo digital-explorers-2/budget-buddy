@@ -5,11 +5,11 @@ import { createRouteHandlerClient } from "@supabase/auth-helpers-nextjs"
 export async function GET(req: NextRequest) {
   // Instantiates a new instance of supabase, route handler variation
   const supabase = createRouteHandlerClient({ cookies })
-  
+
   // Extracts the search params from the requested url, supabase assigns
   // some custom search params to verify auth
   const { searchParams } = new URL(req.url)
-  
+
   // a verification code is extracted from the search params
   const code = searchParams.get("code")
 

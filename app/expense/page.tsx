@@ -1,6 +1,6 @@
 "use client"
 
-import ExpenseModal  from './expense-modal';
+import ExpenseModal from "./expense-modal"
 
 export default function Home() {
   return (
@@ -8,5 +8,5 @@ export default function Home() {
       <h1 className="text-2xl font-bold mb-4">Expense Tracker</h1>
       <ExpenseModal />
     </div>
-  );
+  )
 }
