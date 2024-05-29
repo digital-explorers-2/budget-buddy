@@ -56,12 +56,21 @@ const ManageAccount: React.FC = () => {
               Confirm Currency
             </button>
           </div>
-          <div className="mb-8">
+          <div className="mb-12">
             <h2 className="text-lg font-semibold mb-4">Income Categories</h2>
-            <div className="grid grid-cols-3 gap-4 mb-4">
-              <div className="bg-gray-200 p-4 rounded-md">Category 1</div>
-              <div className="bg-gray-200 p-4 rounded-md">Category 2</div>
-              <div className="bg-gray-200 p-4 rounded-md">Category 3</div>
+            <div className="grid grid-cols-3 gap-6 mb-4">
+              <div className="bg-gray-200 p-4 rounded-md flex justify-between items-center">
+                <span>Category 1</span>
+                <button className="text-red-500">Delete</button>
+              </div>
+              <div className="bg-gray-200 p-4 rounded-md flex justify-between items-center">
+                <span>Category 2</span>
+                <button className="text-red-500">Delete</button>
+              </div>
+              <div className="bg-gray-200 p-4 rounded-md flex justify-between items-center">
+                <span>Category 3</span>
+                <button className="text-red-500">Delete</button>
+              </div>
             </div>
             <button className="px-4 py-2 bg-green-500 text-white rounded-md">
               Create New Category
@@ -69,10 +78,19 @@ const ManageAccount: React.FC = () => {
           </div>
           <div>
             <h2 className="text-lg font-semibold mb-4">Expenses Categories</h2>
-            <div className="grid grid-cols-3 gap-4 mb-4">
-              <div className="bg-gray-200 p-4 rounded-md">Category 1</div>
-              <div className="bg-gray-200 p-4 rounded-md">Category 2</div>
-              <div className="bg-gray-200 p-4 rounded-md">Category 3</div>
+            <div className="grid grid-cols-3 gap-6 mb-4">
+              <div className="bg-gray-200 p-4 rounded-md flex justify-between items-center">
+                <span>Category 1</span>
+                <button className="text-red-500">Delete</button>
+              </div>
+              <div className="bg-gray-200 p-4 rounded-md flex justify-between items-center">
+                <span>Category 2</span>
+                <button className="text-red-500">Delete</button>
+              </div>
+              <div className="bg-gray-200 p-4 rounded-md flex justify-between items-center">
+                <span>Category 3</span>
+                <button className="text-red-500">Delete</button>
+              </div>
             </div>
             <button className="px-4 py-2 bg-green-500 text-white rounded-md">
               Create New Category
