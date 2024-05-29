@@ -2,9 +2,9 @@ import React from "react"
 
 const ManageAccount: React.FC = () => {
   return (
-    <div>
+    <div className="w-full">
       <div className="flex min-h-screen bg-gray-100 p-8">
-        <div className="bg-gray p-6 max-w-4xl mx-auto">
+        <div className="w-full max-w-[800px]bg-gray p-6  mx-auto">
           <h1 className="text-3xl font-bold mb-8">Manage Account</h1>
 
           <div className="mb-12 bg-white shadow-md rounded-lg p-6">
