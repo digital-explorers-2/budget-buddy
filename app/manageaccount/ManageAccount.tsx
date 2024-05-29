@@ -32,27 +32,28 @@ const ManageAccount: React.FC = () => {
               <div className="bg-gray-200 p-4 rounded-md flex justify-between items-center">
                 <span>Category 2</span>
                 <button className="text-red-500">Delete</button>
-              </div>
-              <div className="bg-gray-200 p-4 rounded-md flex justify-between items-center">
-                <span>Category 3</span>
                 <button className="text-red-500">Delete</button>
               </div>
             </div>
-            <button className="px-4 py-2 bg-green-500 text-white rounded-md">Create New Category</button>
-          </div>
-          <div>
-            <h2 className="text-lg font-semibold mb-4">Expenses Categories</h2>
-            <div className="grid grid-cols-3 gap-6 mb-4">
-              <div className="bg-gray-200 p-4 rounded-md flex justify-between items-center">
-                <span>Category 1</span>
-                <button className="text-red-500">Delete</button>
+            <div>
+              <div className="flex justify-between items-center mb-4">
+                <h2 className="text-lg font-semibold">Expenses Categories</h2>
+                <button className="px-4 py-2 bg-green-500 text-white rounded-md">Create New Category</button>
               </div>
-              <div className="bg-gray-200 p-4 rounded-md flex justify-between items-center">
-                <span>Category 2</span>
-                <button className="text-red-500">Delete</button>
+              <div className="grid grid-cols-3 gap-6">
+                <div className="bg-gray-200 p-4 rounded-md flex justify-center items-center">
+                  <span>Category 1</span>
+                </div>
+                <div className="bg-gray-200 p-4 rounded-md flex justify-center items-center">
+                  <span>Category 2</span>
+                </div>
+                <div className="bg-gray-200 p-4 rounded-md flex justify-center items-center">
+                  <span>Category 3</span>
+                </div>
               </div>
-              <div className="bg-gray-200 p-4 rounded-md flex justify-between items-center">
-                <span>Category 3</span>
+              <div className="grid grid-cols-3 gap-6 mt-2">
+                <button className="text-red-500">Delete</button>
+                <button className="text-red-500">Delete</button>
                 <button className="text-red-500">Delete</button>
               </div>
             </div>
