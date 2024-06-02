@@ -20,5 +20,5 @@ export default function DeployButton() {
     //   Deploy to Vercel
     // </a>
     null
-  )
+  );
 }

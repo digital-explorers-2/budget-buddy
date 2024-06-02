@@ -1,5 +1,5 @@
-import { Dashboard } from "./dashboard"
+import { Dashboard } from "./dashboard";
 
 export default async function mainDashboard() {
-  return <Dashboard />
+  return <Dashboard />;
 }

@@ -1,14 +1,14 @@
-"use client"
-import React from "react"
-import { useForm, Controller, FormProvider } from "react-hook-form"
+"use client";
+import React from "react";
+import { useForm, Controller, FormProvider } from "react-hook-form";
 
 const ExpenseModal: React.FC = () => {
-  const methods = useForm()
-  const { handleSubmit, control } = methods
+  const methods = useForm();
+  const { handleSubmit, control } = methods;
 
   const onSubmit = (data: any) => {
-    console.log(data)
-  }
+    console.log(data);
+  };
 
   return (
     <FormProvider {...methods}>
@@ -92,10 +92,7 @@ const ExpenseModal: React.FC = () => {
                     required
                     className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm"
                   >
-                    <option
-                      value=""
-                      disabled
-                    >
+                    <option value="" disabled>
                       Select category
                     </option>
                     <option value="Food">Food</option>
@@ -152,7 +149,7 @@ const ExpenseModal: React.FC = () => {
         </div>
       </div>
     </FormProvider>
-  )
-}
+  );
+};
 
-export default ExpenseModal
+export default ExpenseModal;
