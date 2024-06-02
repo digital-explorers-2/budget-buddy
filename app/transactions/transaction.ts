@@ -1,4 +1,4 @@
-import type { NextApiRequest, NextApiResponse } from "next"
+import type { NextApiRequest, NextApiResponse } from "next";
 
 const transactions: Transaction[] = [
   {
@@ -22,11 +22,11 @@ const transactions: Transaction[] = [
     type: "Expense",
     amount: 1200,
   },
-]
+];
 
 export default function handler(
   req: NextApiRequest,
   res: NextApiResponse<Transaction[]>,
 ) {
-  res.status(200).json(transactions)
+  res.status(200).json(transactions);
 }

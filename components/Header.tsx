@@ -1,5 +1,5 @@
-import NextLogo from "./NextLogo"
-import SupabaseLogo from "./SupabaseLogo"
+import NextLogo from "./NextLogo";
+import SupabaseLogo from "./SupabaseLogo";
 
 export default function Header() {
   return (
@@ -13,11 +13,7 @@ export default function Header() {
           <SupabaseLogo />
         </a>
         <span className="border-l rotate-45 h-6" />
-        <a
-          href="https://nextjs.org/"
-          target="_blank"
-          rel="noreferrer"
-        >
+        <a href="https://nextjs.org/" target="_blank" rel="noreferrer">
           <NextLogo />
         </a>
       </div>
@@ -44,5 +40,5 @@ export default function Header() {
       </p>
       <div className="w-full p-[1px] bg-gradient-to-r from-transparent via-foreground/10 to-transparent my-8" />
     </div>
-  )
+  );
 }

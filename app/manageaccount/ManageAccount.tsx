@@ -1,4 +1,4 @@
-import React from "react"
+import React from "react";
 
 const ManageAccount: React.FC = () => {
   return (
@@ -74,7 +74,7 @@ const ManageAccount: React.FC = () => {
         </div>
       </div>
     </div>
-  )
-}
+  );
+};
 
-export default ManageAccount
+export default ManageAccount;

@@ -1,17 +1,17 @@
-"use client"
+"use client";
 
-import * as React from "react"
-import Link from "next/link"
-import Image from "next/image"
-import logo from "../app/public/logo.png"
-import AuthButton from "@/components/AuthButton"
+import * as React from "react";
+import Link from "next/link";
+import Image from "next/image";
+import logo from "../app/public/logo.png";
+import AuthButton from "@/components/AuthButton";
 
 import {
   NavigationMenu,
   NavigationMenuItem,
   NavigationMenuLink,
   NavigationMenuList,
-} from "@/components/ui/navigation-menu"
+} from "@/components/ui/navigation-menu";
 
 const components = [
   {
@@ -28,7 +28,7 @@ const components = [
     title: "Transactions",
     href: "/docs/primitives/progress",
   },
-]
+];
 
 export function NavigationMenuDemo() {
   return (
@@ -36,7 +36,7 @@ export function NavigationMenuDemo() {
       <div className="flex items-center space-x-4 ">
         <NavigationMenuList className="flex space-x-4">
           {components.map(
-            component =>
+            (component) =>
               !component.logo && (
                 <NavigationMenuItem key={component.title}>
                   <Link href={component.href}>
@@ -50,5 +50,5 @@ export function NavigationMenuDemo() {
         </NavigationMenuList>
       </div>
     </NavigationMenu>
-  )
+  );
 }
