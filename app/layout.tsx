@@ -1,4 +1,3 @@
-// RootLayout.tsx
 import { GeistSans } from "geist/font/sans";
 import "./globals.css";
 import Footer from "@/components/footer";
