@@ -1,5 +1,5 @@
-import React from "react";
-import { FaRegMoneyBillAlt, FaChartLine, FaPiggyBank } from "react-icons/fa";
+import React from "react"
+import { FaRegMoneyBillAlt, FaChartLine, FaPiggyBank } from "react-icons/fa"
 
 const features = [
   {
@@ -20,11 +20,14 @@ const features = [
       "Define your financial goals and track your savings progress to reach them efficiently.",
     icon: <FaPiggyBank size={24} />,
   },
-];
+]
 
 const Features: React.FC = () => {
   return (
-    <section id="features" className="container mx-auto py-12">
+    <section
+      id="features"
+      className="container mx-auto py-12"
+    >
       <h2 className="text-2xl font-bold mb-6 text-white">Features</h2>
       <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
         {features.map((feature, index) => (
@@ -42,7 +45,7 @@ const Features: React.FC = () => {
         ))}
       </div>
     </section>
-  );
-};
+  )
+}
 
-export default Features;
+export default Features

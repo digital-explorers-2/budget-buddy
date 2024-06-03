@@ -1,5 +1,5 @@
-import Link from "next/link";
-import Step from "./Step";
+import Link from "next/link"
+import Step from "./Step"
 
 export default function SignUpUserSteps() {
   return (
@@ -18,5 +18,5 @@ export default function SignUpUserSteps() {
         </p>
       </Step>
     </ol>
-  );
+  )
 }

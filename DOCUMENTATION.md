@@ -3,7 +3,6 @@
 We implemented the following changes:
 
 - Code formatter: Adding Prettier to project:
-  \*one person to-> Add issue and feature branch for the prettier extension
 
 - Run this:
   "npm install --save-dev --save-exact prettier"
