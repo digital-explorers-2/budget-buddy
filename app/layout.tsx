@@ -1,3 +1,4 @@
+// RootLayout.tsx
 import { GeistSans } from "geist/font/sans";
 import "./globals.css";
 import Footer from "@/components/footer";
@@ -39,7 +40,7 @@ export default function RootLayout({
   return (
     <html lang="en" className={GeistSans.className}>
       <body className="bg-background text-foreground">
-        <header className="flex items-center border-b border-b-foreground/10 h-16">
+        <header className="flex items-center border-b border-b-foreground/10 h-16 ">
           <div className="w-1/5 flex justify-center">
             <Logo />
           </div>
@@ -52,7 +53,7 @@ export default function RootLayout({
           </div>
         </header>
 
-        <main className="min-h-screen flex flex-col items-center">
+        <main className="min-h-screen flex flex-col items-stretch w-full">
           {children}
         </main>
         <Footer />
