@@ -1,4 +1,4 @@
-import React from "react";
+import React from "react"
 
 const Footer: React.FC = () => {
   return (
@@ -11,16 +11,28 @@ const Footer: React.FC = () => {
         </p>
       </div>
       <div className="flex space-x-4 mb-4">
-        <a href="/about" className="hover:underline">
+        <a
+          href="/about"
+          className="hover:underline"
+        >
           About Us
         </a>
-        <a href="/features" className="hover:underline">
+        <a
+          href="/features"
+          className="hover:underline"
+        >
           Features
         </a>
-        <a href="/contact" className="hover:underline">
+        <a
+          href="/contact"
+          className="hover:underline"
+        >
           Contact
         </a>
-        <a href="/privacy" className="hover:underline">
+        <a
+          href="/privacy"
+          className="hover:underline"
+        >
           Privacy Policy
         </a>
       </div>
@@ -57,7 +69,7 @@ const Footer: React.FC = () => {
         <p>Designed and built with ❤️ by the Budget Buddy team.</p>
       </div>
     </footer>
-  );
-};
+  )
+}
 
-export default Footer;
+export default Footer

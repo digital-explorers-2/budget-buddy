@@ -1,7 +1,7 @@
-"use client";
+"use client"
 
-import { FC, useState } from "react";
-import { Button } from "@/components/ui/button";
+import { FC, useState } from "react"
+import { Button } from "@/components/ui/button"
 import {
   Table,
   TableHeader,
@@ -9,7 +9,7 @@ import {
   TableRow,
   TableCell,
   TableHead,
-} from "@/components/ui/table";
+} from "@/components/ui/table"
 
 const Transactions: FC = () => {
   // Define the JSON array directly in the component
@@ -36,20 +36,29 @@ const Transactions: FC = () => {
       amount: 1200,
     },
     // Add more transactions as needed
-  ];
+  ]
 
   return (
     <div className="flex flex-col min-h-screen w-full bg-gray-200 text-black">
       <main className="flex flex-col flex-1 p-4 w-full">
         <h1 className="text-2xl mb-4">Transactions History</h1>
         <div className="flex justify-between mb-4">
-          <Button variant="outline" className="border-gray-400">
+          <Button
+            variant="outline"
+            className="border-gray-400"
+          >
             + Category
           </Button>
-          <Button variant="outline" className="border-gray-400">
+          <Button
+            variant="outline"
+            className="border-gray-400"
+          >
             + Type
           </Button>
-          <Button variant="outline" className="bg-blue-500 text-white">
+          <Button
+            variant="outline"
+            className="bg-blue-500 text-white"
+          >
             Export as CSV
           </Button>
         </div>
@@ -64,7 +73,7 @@ const Transactions: FC = () => {
           </TableHeader>
           <TableBody>
             {transactions.length > 0 ? (
-              transactions.map((transaction) => (
+              transactions.map(transaction => (
                 <TableRow key={transaction.id}>
                   <TableCell>{transaction.description}</TableCell>
                   <TableCell>{transaction.date}</TableCell>
@@ -74,7 +83,10 @@ const Transactions: FC = () => {
               ))
             ) : (
               <TableRow>
-                <TableCell colSpan={4} className="text-center">
+                <TableCell
+                  colSpan={4}
+                  className="text-center"
+                >
                   No transactions found.
                 </TableCell>
               </TableRow>
@@ -83,7 +95,7 @@ const Transactions: FC = () => {
         </Table>
       </main>
     </div>
-  );
-};
+  )
+}
 
-export default Transactions;
+export default Transactions

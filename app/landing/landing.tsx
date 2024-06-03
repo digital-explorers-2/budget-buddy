@@ -1,20 +1,26 @@
 // pages/index.tsx
-import Head from "next/head";
-import Image from "next/image";
-import Features from "@/components/Features";
-import Testimonials from "@/components/Testimonials";
-import CallToAction from "@/components/callToAction";
-import person from "@/app/public/images/person.png"; // Ensure the correct path
-import { Button } from "@/components/ui/button";
-import "typeface-roboto";
+import Head from "next/head"
+import Image from "next/image"
+import Features from "@/components/Features"
+import Testimonials from "@/components/Testimonials"
+import CallToAction from "@/components/callToAction"
+import person from "@/app/public/images/person.png" // Ensure the correct path
+import { Button } from "@/components/ui/button"
+import "typeface-roboto"
 
 const Home: React.FC = () => {
   return (
     <div>
       <Head>
         <title>Budget Tracker</title>
-        <meta name="description" content="A budget tracker app landing page" />
-        <link rel="icon" href="/favicon.ico" />
+        <meta
+          name="description"
+          content="A budget tracker app landing page"
+        />
+        <link
+          rel="icon"
+          href="/favicon.ico"
+        />
         <link
           href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap"
           rel="stylesheet"
@@ -25,11 +31,9 @@ const Home: React.FC = () => {
         <section className="min-h-screen grid grid-cols-1 md:grid-cols-2 gap-6 items-center mb-3">
           <div className="text-center md:text-left">
             <h1 className="text-4xl font-bold mb-6 text-white font-roboto">
-          
               Track your budget effortlessly
             </h1>
             <p className="text-lg mb-6 text-white font-roboto">
-         
               Manage your finances with our easy-to-use budget tracker app.
             </p>
             <Features />
@@ -58,7 +62,7 @@ const Home: React.FC = () => {
         <CallToAction /> */}
       </main>
     </div>
-  );
-};
+  )
+}
 
-export default Home;
+export default Home

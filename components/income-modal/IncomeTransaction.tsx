@@ -1,4 +1,4 @@
-"use client";
+"use client"
 
 import * as React from "react"
 import { format } from "date-fns"
@@ -23,13 +23,13 @@ import {
   Popover,
   PopoverContent,
   PopoverTrigger,
-} from "@/components/ui/popover";
+} from "@/components/ui/popover"
 import {
   Command,
   CommandInput,
   CommandList,
   CommandItem,
-} from "@/components/ui/command";
+} from "@/components/ui/command"
 
 export function IncomeTransaction({ isOpen, onClose }: StatesProps) {
   const [date, setDate] = React.useState<Date>()

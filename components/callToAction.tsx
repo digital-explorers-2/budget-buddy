@@ -1,9 +1,12 @@
 // components/CallToAction.tsx
-import React from "react";
+import React from "react"
 
 const CallToAction: React.FC = () => {
   return (
-    <section id="cta" className="bg-blue-600 text-white py-12">
+    <section
+      id="cta"
+      className="bg-blue-600 text-white py-12"
+    >
       <div className="container mx-auto text-center">
         <h2 className="text-2xl font-bold mb-6">Ready to get started?</h2>
         <a
@@ -14,7 +17,7 @@ const CallToAction: React.FC = () => {
         </a>
       </div>
     </section>
-  );
-};
+  )
+}
 
-export default CallToAction;
+export default CallToAction

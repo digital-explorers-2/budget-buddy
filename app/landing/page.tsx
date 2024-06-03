@@ -1,8 +1,8 @@
-import React from "react";
-import Landing from "./landing";
+import React from "react"
+import Landing from "./landing"
 
 const Page: React.FC = () => {
-  return <Landing />;
-};
+  return <Landing />
+}
 
-export default Page;
+export default Page

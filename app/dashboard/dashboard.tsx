@@ -1,6 +1,6 @@
-"use client";
+"use client"
 
-import * as React from "react";
+import * as React from "react"
 
 import { Button } from "@/components/ui/button"
 import { cn } from "@/lib/utils"
@@ -179,7 +179,7 @@ export function Dashboard() {
         <Card className="flex items-center gap-4 p-2">
           <CardContent className="w-full h-full">
             <Tabs
-              defaultValue="account"
+              defaultValue="year"
               className="w-full h-80"
             >
               <TabsList className="grid w-[200px] grid-cols-2 bg-gray-200">
@@ -224,5 +224,5 @@ export function Dashboard() {
         onClose={closeIncomeModal}
       />
     </div>
-  );
+  )
 }
