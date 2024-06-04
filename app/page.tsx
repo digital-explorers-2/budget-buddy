@@ -13,7 +13,6 @@ const Home = async () => {
   const user = await getUser()
 
 
-
   return (
     <div>
       <Head>
