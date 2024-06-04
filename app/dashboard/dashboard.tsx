@@ -1,7 +1,7 @@
 "use client"
 
 import * as React from "react"
-
+import "../globals.css"
 import { Button } from "@/components/ui/button"
 import { cn } from "@/lib/utils"
 import { addDays, format } from "date-fns"
@@ -53,21 +53,20 @@ export function Dashboard() {
   })
 
   return (
-    <div className="h-full w-full">
-      <div className="border-b">
+    <div className="h-full w-full ">
+      <div>
         <div className="flex flex-wrap items-center justify-between gap-6 py-8 p-4">
           <p className="text-3xl font-bold">Hello, "Username"!</p>
           <div className="flex items-center gap-3">
             <Button
               variant="outline"
-              className="bg-emerald-500 hover:bg-emerald-700"
+              className="border-bg-green-200 bg-emerald-500 hover:bg-emerald-700"
               onClick={openIncomeModal}
             >
               New Income
             </Button>
 
             <Button
-              variant="outline"
               className="bg-rose-800 hover:bg-rose-700"
               onClick={openExpenseModal}
             >
@@ -124,7 +123,7 @@ export function Dashboard() {
 
       <div className=" flex w-full flex-col gap-2 p-4">
         <div className="relative flex w-full flex-wrap  gap-2 md:flex-nowrap">
-          <Card className="w-full h-25">
+          <Card className="w-full h-25 border-primary">
             <CardContent className="flex w-full items-center h-25 gap-2 pt-4">
               <TrendingUp className="h-12 w-12 items-center rounded-lg p-2 text-emerald-500 bg-emerald-400/10" />
               <div>
@@ -182,9 +181,19 @@ export function Dashboard() {
               defaultValue="year"
               className="w-full h-80"
             >
-              <TabsList className="grid w-[200px] grid-cols-2 bg-gray-200">
-                <TabsTrigger value="year">Year</TabsTrigger>
-                <TabsTrigger value="month">Month</TabsTrigger>
+              <TabsList className="grid w-[200px] grid-cols-2 bg-gray-600 gap-1 rounded-md bg-muted">
+                <TabsTrigger
+                  className="border border-input bg-background"
+                  value="year"
+                >
+                  Year
+                </TabsTrigger>
+                <TabsTrigger
+                  className="hover:bg-black"
+                  value="month"
+                >
+                  Month
+                </TabsTrigger>
               </TabsList>
               <TabsContent
                 value="year"
