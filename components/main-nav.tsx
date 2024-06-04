@@ -16,7 +16,7 @@ import {
 const components = [
   {
     title: "Home",
-    href: "/protected",
+    href: "/",
     logo: true, // Indicate that this item is the logo
   },
   {

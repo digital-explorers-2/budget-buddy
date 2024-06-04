@@ -5,6 +5,7 @@ module.exports = {
     "./components/**/*.{js,ts,jsx,tsx,mdx}",
   ],
   theme: {
+    darkMode: "class",
     extend: {
       colors: {
         background: "hsl(var(--background))",
@@ -23,6 +24,9 @@ module.exports = {
       },
       fontFamily: {
         roboto: ["Roboto", "sans-serif"],
+      },
+      colors: {
+        "custom-blue": "#072d48",
       },
     },
   },

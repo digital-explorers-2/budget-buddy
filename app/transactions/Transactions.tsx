@@ -39,7 +39,7 @@ const Transactions: FC = () => {
   ]
 
   return (
-    <div className="flex flex-col min-h-screen w-full bg-gray-200 text-black">
+    <div className="flex flex-col min-h-screen w-full  ">
       <main className="flex flex-col flex-1 p-4 w-full">
         <h1 className="text-2xl mb-4">Transactions History</h1>
         <div className="flex justify-between mb-4">
@@ -62,7 +62,7 @@ const Transactions: FC = () => {
             Export as CSV
           </Button>
         </div>
-        <Table className="bg-white w-full">
+        <Table className="bg-white w-full text-black">
           <TableHeader>
             <TableRow>
               <TableHead>Description</TableHead>
