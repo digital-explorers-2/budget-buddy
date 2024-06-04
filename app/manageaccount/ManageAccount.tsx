@@ -2,10 +2,12 @@ import React from "react"
 
 const ManageAccount: React.FC = () => {
   return (
-    <div className="w-full">
-      <div className="flex min-h-screen bg-gray-100 p-8">
+    <div className="w-full text-black">
+      <div className="flex min-h-screen  p-8">
         <div className="w-full max-w-[800px]bg-gray p-6  mx-auto">
-          <h1 className="text-3xl font-bold mb-8">Manage Account</h1>
+          <h1 className="text-3xl font-bold mb-8 dark:text-gray-100">
+            Manage Account
+          </h1>
 
           <div className="mb-12 bg-white shadow-md rounded-lg p-6">
             <h2 className="text-xl font-semibold mb-2">Currency</h2>

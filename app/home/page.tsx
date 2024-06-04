@@ -7,6 +7,7 @@ import FetchDataSteps from "@/components/tutorial/FetchDataSteps"
 import Header from "@/components/Header"
 import { redirect } from "next/navigation"
 import { NavigationMenuDemo } from "@/components/main-nav"
+import Landing from "@/app/landing/landing"
 
 export default async function ProtectedPage() {
   const supabase = createClient()
@@ -19,5 +20,5 @@ export default async function ProtectedPage() {
     return redirect("/login")
   }
 
-  return <div className="flex-1 w-full flex flex-col gap-20 items-center"></div>
+  return <Landing />
 }

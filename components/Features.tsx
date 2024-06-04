@@ -4,23 +4,21 @@ import { FaRegMoneyBillAlt, FaChartLine, FaPiggyBank } from "react-icons/fa"
 const features = [
   {
     title: "Expense Tracking",
-    detail:
-      "Easily record and categorize your daily expenses to stay on top of your spending.",
+    detail: "Record and categorize daily expenses.",
     icon: <FaRegMoneyBillAlt size={24} />,
   },
   {
     title: "Income Management",
-    detail:
-      "Track all sources of income and view detailed reports to manage your earnings effectively.",
+    detail: "Track income and view detailed reports.",
     icon: <FaChartLine size={24} />,
   },
   {
     title: "Financial Goals",
-    detail:
-      "Define your financial goals and track your savings progress to reach them efficiently.",
+    detail: "Set and track savings goals.",
     icon: <FaPiggyBank size={24} />,
   },
 ]
+
 
 const Features: React.FC = () => {
   return (
@@ -33,7 +31,7 @@ const Features: React.FC = () => {
         {features.map((feature, index) => (
           <div
             key={index}
-            className="bg-white bg-opacity-90 p-6 rounded-lg shadow-custom-strong"
+            className="bg-white bg-opacity-90 p-6 rounded-lg shadow-custom-strong text-black"
           >
             {" "}
             <div className="flex items-center mb-4">
