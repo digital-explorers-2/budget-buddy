@@ -31,3 +31,8 @@ type Transaction = {
   type: string
   amount: number
 }
+
+interface StatesProps {
+  isOpen: boolean
+  onClose: () => void
+}

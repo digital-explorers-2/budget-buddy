@@ -5,6 +5,7 @@ module.exports = {
     "./components/**/*.{js,ts,jsx,tsx,mdx}",
   ],
   theme: {
+    darkMode: "class",
     extend: {
       colors: {
         background: "hsl(var(--background))",
@@ -13,6 +14,19 @@ module.exports = {
           background: "hsl(var(--btn-background))",
           "background-hover": "hsl(var(--btn-background-hover))",
         },
+      },
+      backgroundImage: {
+        "finance-gradient":
+          "linear-gradient(to right, #38ada9, #3c6382, #0a3d62)",
+      },
+      boxShadow: {
+        "custom-strong": "0 10px 15px rgba(0, 0, 0, 0.6)",
+      },
+      fontFamily: {
+        roboto: ["Roboto", "sans-serif"],
+      },
+      colors: {
+        "custom-blue": "#072d48",
       },
     },
   },

@@ -65,3 +65,31 @@
     --ring: 212.7 26.8% 83.9%;
   }
 }
+body {
+  margin: 0;
+  background-color: #f0f2f5;
+}
+
+.container {
+  max-width: 100;
+  padding: 0 15px;
+  margin: 0 auto;
+}
+
+@keyframes zoomInOut {
+  0%,
+  100% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.1);
+  }
+}
+
+.glow-button {
+  animation: zoomInOut 3s infinite;
+  box-shadow:
+    0 0 10px rgba(255, 255, 255, 0.7),
+    0 0 20px rgba(255, 255, 255, 0.7),
+    0 0 30px rgba(255, 255, 255, 0.7);
+}
