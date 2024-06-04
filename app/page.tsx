@@ -6,20 +6,12 @@ import CallToAction from "@/components/callToAction"
 import person from "@/app/public/images/person.png"
 import { Button } from "@/components/ui/button"
 import { getUser } from "@/utils/ServerActions/authActions"
-import "typeface-roboto"
 import Link from "next/link"
-import { useRouter } from "next/navigation"
+
 
 const Home = async () => {
   const user = await getUser()
 
-  const handleGetStartedClick = () => {
-    if (user) {
-      router.push("/dashboard")
-    } else {
-      router.push("/login")
-    }
-  }
 
 
   return (
