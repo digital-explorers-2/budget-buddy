@@ -9,3 +9,5 @@ export const supabase = createClient(supabaseUrl, supabaseKey)
 export function createServerClient(): SupabaseClient {
   return createClient(supabaseUrl, supabaseKey)
 }
+
+export default supabase;
