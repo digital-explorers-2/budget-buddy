@@ -45,7 +45,7 @@ export default function RootLayout({
       <head>
         <script src="/theme-toggle.js" />
       </head>
-      <body className="bg-background text-foreground dark:bg-gray-900 dark:text-gray-100 ">
+      <body className="bg-background text-foreground dark:bg-gray-900 dark:text-gray-100">
         {" "}
         <Header />
         <main className="min-h-screen flex flex-col items-stretch w-full mt-16">
