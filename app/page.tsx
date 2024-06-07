@@ -8,10 +8,8 @@ import { Button } from "@/components/ui/button"
 import { getUser } from "@/utils/ServerActions/authActions"
 import Link from "next/link"
 
-
 const Home = async () => {
   const user = await getUser()
-
 
   return (
     <div>

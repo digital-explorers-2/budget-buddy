@@ -27,10 +27,12 @@ import { Calendar } from "@/components/ui/calendar"
 
 import { IncomeTransaction } from "@/components/income-modal/IncomeTransaction"
 import { ExpenseTransaction } from "@/components/expense-modal/ExpenseTransction"
+import { useUser } from "@/hooks/UserContext"
 
 export function Dashboard() {
   const [showExpenseModal, setShowExpenseModal] = React.useState(false)
   const [showIncomeModal, setShowIncomeModal] = React.useState(false)
+  const { user } = useUser()
 
   const openExpenseModal = () => {
     setShowExpenseModal(true)
@@ -57,7 +59,7 @@ export function Dashboard() {
     <div className="h-full w-full ">
       <div>
         <div className="flex flex-wrap border-2 border-slate-800 items-center justify-between gap-6 py-8 p-4 ">
-          <p className="text-3xl font-bold">Hello, "Username"!</p>
+          <p className="text-3xl font-bold">Hello, {user?.email}!</p>
           <div className="flex items-center gap-3">
             <Button
               variant="outline"
