@@ -26,6 +26,7 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 import { Calendar } from "@/components/ui/calendar"
 
 import { IncomeTransaction } from "@/components/income-modal/IncomeTransaction"
+import { ExpenseTransaction } from "@/components/expense-modal/ExpenseTransction"
 
 export function Dashboard() {
   const [showExpenseModal, setShowExpenseModal] = React.useState(false)
@@ -232,6 +233,10 @@ export function Dashboard() {
       <IncomeTransaction
         isOpen={showIncomeModal}
         onClose={closeIncomeModal}
+      />
+      <ExpenseTransaction
+        isOpen={showExpenseModal}
+        onClose={closeExpenseModal}
       />
     </div>
   )
