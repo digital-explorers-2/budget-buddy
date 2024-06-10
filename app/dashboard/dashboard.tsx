@@ -28,10 +28,13 @@ import { Calendar } from "@/components/ui/calendar"
 import { IncomeTransaction } from "@/components/income-modal/IncomeTransaction"
 import { ExpenseTransaction } from "@/components/expense-modal/ExpenseTransction"
 import { useUser } from "@/hooks/UserContext"
+import { supabase } from "@/lib/supabaseClient"
 
 export function Dashboard() {
   const [showExpenseModal, setShowExpenseModal] = React.useState(false)
   const [showIncomeModal, setShowIncomeModal] = React.useState(false)
+  const [income, setIncome] = React.useState(0)
+  const [expense, setExpense] = React.useState(0)
   const { user } = useUser()
 
   const openExpenseModal = () => {
@@ -54,6 +57,37 @@ export function Dashboard() {
     from: new Date(2024, 5, 2),
     to: addDays(new Date(2024, 5, 2), 20),
   })
+
+  const fetchTransactions = async () => {
+    const { data: incomeData, error: incomeError } = await supabase
+      .from("transaction1")
+      .select("amount")
+      .eq("type", "income")
+
+    const { data: expenseData, error: expenseError } = await supabase
+      .from("transaction1")
+      .select("amount")
+      .eq("type", "expense")
+
+    if (incomeError || expenseError) {
+      console.error("Error fetching transactions:", incomeError || expenseError)
+    } else {
+      const totalIncome = incomeData.reduce(
+        (acc, transaction) => acc + transaction.amount,
+        0,
+      )
+      const totalExpense = expenseData.reduce(
+        (acc, transaction) => acc + transaction.amount,
+        0,
+      )
+      setIncome(totalIncome)
+      setExpense(totalExpense)
+    }
+  }
+
+  fetchTransactions()
+
+  const balance = income - expense
 
   return (
     <div className="h-full w-full ">
@@ -132,7 +166,7 @@ export function Dashboard() {
               <TrendingUp className="h-12 w-12 items-center rounded-lg p-2 text-emerald-500 bg-emerald-400/10" />
               <div>
                 <span>Income</span>
-                <p>0,00 $</p>
+                <p>{income.toFixed(2)} $</p>
               </div>
             </CardContent>
           </Card>
@@ -141,7 +175,7 @@ export function Dashboard() {
               <TrendingDown className="h-12 w-12 items-center rounded-lg p-2 text-red-500 bg-red-400/10" />
               <div>
                 <span>Expense</span>
-                <p>0,00 $</p>
+                <p>{expense.toFixed(2)} $</p>
               </div>
             </CardContent>
           </Card>
@@ -150,7 +184,7 @@ export function Dashboard() {
               <Wallet className="h-12 w-12 items-center rounded-lg p-2 text-violet-500 bg-violet-400/10" />
               <div>
                 <span>Balance</span>
-                <p>0,00 $</p>
+                <p>{balance.toFixed(2)} $</p>
               </div>
             </CardContent>
           </Card>
