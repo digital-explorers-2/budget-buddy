@@ -46,7 +46,7 @@ export function ExpenseTransaction({ isOpen, onClose }: StatesProps) {
         const { data, error } = await supabase
             .from('transaction1')  // table name
             .insert([
-                { description, amount, category, date: transactiondate ? transactiondate.toISOString() : null, type }
+                { description, amount, category, transactiondate: transactiondate ? transactiondate.toISOString() : null, type }
             ])
 
         if (error) {
