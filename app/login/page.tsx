@@ -1,5 +1,6 @@
 import Link from "next/link"
 import { headers } from "next/headers"
+//import { createServerClient } from "@/lib/supabaseClient"
 import { createClient } from "@/utils/supabase/server"
 import { redirect } from "next/navigation"
 import { SubmitButton } from "./submit-button"
@@ -15,6 +16,7 @@ export default function Login({
     const email = formData.get("email") as string
     const password = formData.get("password") as string
     const supabase = createClient()
+    //const supabase = createServerClient()
 
     const { error } = await supabase.auth.signInWithPassword({
       email,
@@ -22,6 +24,7 @@ export default function Login({
     })
 
     if (error) {
+      console.error("Sign in error:", error.message)
       return redirect("/login?message=Could not authenticate user")
     }
 
@@ -34,6 +37,7 @@ export default function Login({
     const origin = headers().get("origin")
     const email = formData.get("email") as string
     const password = formData.get("password") as string
+    //const supabase = createServerClient()
     const supabase = createClient()
 
     const { error } = await supabase.auth.signUp({
@@ -45,6 +49,7 @@ export default function Login({
     })
 
     if (error) {
+      console.error("Sign up error:", error.message)
       return redirect("/login?message=Could not authenticate user")
     }
 

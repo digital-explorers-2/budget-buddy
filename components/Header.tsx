@@ -13,9 +13,6 @@ const links = [
   { name: "Manage Account", href: "/manageaccount" },
 ]
 
-
-
-
 const Header = async () => {
   const user = await getUser()
   return (
