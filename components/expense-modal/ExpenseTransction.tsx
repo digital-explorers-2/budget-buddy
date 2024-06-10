@@ -79,7 +79,7 @@ export function ExpenseTransaction({ isOpen, onClose }: StatesProps) {
       open={isOpen}
       onOpenChange={onClose}
     >
-      <DialogContent className="w-full max-w-[500px] bg-gray-800 text-white">
+      <DialogContent className="w-full max-w-[500px] bg-gray-900 border-2 border-slate-800 text-white">
         <DialogHeader>
           <DialogTitle>Create a new expense transaction</DialogTitle>
         </DialogHeader>
@@ -98,7 +98,7 @@ export function ExpenseTransaction({ isOpen, onClose }: StatesProps) {
                 placeholder="Transaction description (optional)"
                 value={description}
                 onChange={e => setDescription(e.target.value)}
-                className="bg-gray-700 text-white placeholder-gray-500"
+                className="bg-gray-900 border-2 border-slate-800 focus:border-indigo-300 focus:ring-indigo-200 focus:ring-opacity-50 text-white placeholder-gray-500"
               />
               <Label
                 htmlFor="amount"
@@ -114,7 +114,7 @@ export function ExpenseTransaction({ isOpen, onClose }: StatesProps) {
                 onChange={e => setAmount(parseFloat(e.target.value))}
                 min="0"
                 placeholder="0"
-                className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring-indigo-200 focus:ring-opacity-50 bg-gray-700 text-white placeholder-gray-500"
+                className="mt-1 block w-full rounded-md bg-gray-900 border-2 border-slate-800 focus:border-indigo-300 focus:ring-indigo-200 focus:ring-opacity-50 text-white placeholder-gray-500"
               />
               <Label
                 htmlFor="category"
@@ -128,7 +128,7 @@ export function ExpenseTransaction({ isOpen, onClose }: StatesProps) {
                 value={category}
                 onChange={e => setCategory(e.target.value)}
                 placeholder="Enter category"
-                className="bg-gray-700 text-white placeholder-gray-500"
+                className="bg-gray-900 border-2 border-slate-800 focus:border-indigo-300 focus:ring-indigo-200 focus:ring-opacity-50 text-white placeholder-gray-500"
               />
               <Label
                 htmlFor="transactiondate"
@@ -141,7 +141,7 @@ export function ExpenseTransaction({ isOpen, onClose }: StatesProps) {
                   <Button
                     variant={"outline"}
                     className={cn(
-                      "w-full justify-start text-left font-normal text-white bg-gray-700",
+                      "w-full justify-start text-left font-normal border-2 border-slate-800",
                       !transactiondate && "text-muted-foreground",
                     )}
                   >
@@ -153,7 +153,7 @@ export function ExpenseTransaction({ isOpen, onClose }: StatesProps) {
                     )}
                   </Button>
                 </PopoverTrigger>
-                <PopoverContent className="w-auto p-0 bg-gray-800 text-white">
+                <PopoverContent className="w-auto p-0 bg-gray-900 border-2 border-slate-800">
                   <Calendar
                     mode="single"
                     selected={transactiondate}
@@ -167,14 +167,14 @@ export function ExpenseTransaction({ isOpen, onClose }: StatesProps) {
           <DialogFooter className="flex justify-end gap-2 mt-4">
             <Button
               type="button"
-              className="bg-gray-200 text-black"
+              className="bg-slate-700 hover:bg-slate-800"
               onClick={onClose}
             >
               Cancel
             </Button>
             <Button
               type="submit"
-              className="bg-black text-white"
+              className="bg-slate-50 hover:bg-slate-200 text-black"
             >
               Create
             </Button>

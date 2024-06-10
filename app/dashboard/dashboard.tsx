@@ -143,7 +143,7 @@ export function Dashboard() {
               </Button>
             </PopoverTrigger>
             <PopoverContent
-              className="w-auto p-0"
+              className="w-auto p-0 bg-gray-900 border-2 border-slate-800"
               align="start"
             >
               <Calendar
