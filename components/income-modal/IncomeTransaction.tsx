@@ -30,59 +30,101 @@ import {
   CommandList,
   CommandItem,
 } from "@/components/ui/command"
+import { supabase } from "@/lib/supabaseClient"
 
 export function IncomeTransaction({ isOpen, onClose }: StatesProps) {
-  const [date, setDate] = React.useState<Date>()
+  const [description, setDescription] = React.useState<string>("")
+  const [transactiondate, setDate] = React.useState<Date>()
   const [amount, setAmount] = React.useState<number>(0)
   const [category, setCategory] = React.useState<string>("")
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault()
+
+    const type = "income"
+
+    const { data, error } = await supabase.from("transaction1").insert([
+      {
+        description,
+        amount,
+        category,
+        transactiondate: transactiondate ? transactiondate.toISOString() : null,
+        type,
+      },
+    ])
+
+    if (error) {
+      console.error("Error inserting data:", error)
+    } else {
+      console.log("Data inserted successfully:", data)
+      // Reset form fields
+      setDescription("")
+      setAmount(0)
+      setCategory("")
+      setDate(undefined)
+      onClose()
+    }
+  }
 
   return (
     <Dialog
       open={isOpen}
       onOpenChange={onClose}
     >
-      <DialogContent className=" w-full max-w-[500px]">
+      <DialogContent className=" w-full max-w-[500px] bg-gray-900 border-2 border-slate-800">
         <DialogHeader>
           <DialogTitle>Create a new income transaction</DialogTitle>
         </DialogHeader>
-        <form>
+        <form onSubmit={handleSubmit}>
           <div className="grid w-full items-center gap-4">
             <div className="flex flex-col space-y-1.5">
               <Label htmlFor="description">Description</Label>
               <Input
                 id="description"
                 type="text"
+                value={description}
+                onChange={e => setDescription(e.target.value)}
+                className="bg-gray-900 border-2 border-slate-800 focus:border-indigo-300 focus:ring-indigo-200 focus:ring-opacity-50"
               />
 
               <Label htmlFor="amount">Amount</Label>
               <Input
                 id="amount"
                 type="number"
+                step="0.01"
                 value={amount}
-                onChange={e => setAmount(Number(e.target.value))}
+                onChange={e => setAmount(parseFloat(e.target.value))}
                 min="0"
-                className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring-indigo-200 focus:ring-opacity-50"
+                className="mt-1 block w-full rounded-md bg-gray-900 border-slate-800 focus:border-indigo-300 focus:ring-indigo-200 focus:ring-opacity-50"
               />
               <div className="flex space-x-4">
                 <div className="flex flex-col space-y-1.5">
                   <Label htmlFor="category">Category</Label>
-                  <Popover>
+                  <Input
+                    id="category"
+                    type="string"
+                    value={category}
+                    onChange={e => setCategory(e.target.value)}
+                    placeholder=""
+                    className="w-full text-left bg-gray-900 border-2 border-slate-800"
+                  ></Input>
+                  {/* <Popover>
                     <PopoverTrigger asChild>
                       <Button
                         variant="outline"
-                        className="w-full text-left"
+                        className="w-full text-left border-2 border-slate-800"
                       >
                         {category ? category : "Select category"}
                       </Button>
                     </PopoverTrigger>
-                    <PopoverContent className="w-full p-2">
+                    <PopoverContent className="w-full p-2 bg-gray-900 border-2 border-slate-800">
                       <Command>
                         <CommandInput placeholder="Search category..." />
                         <CommandList>
                           <CommandItem
                             onSelect={() => setCategory("Create new")}
                           >
-                            <Button className="font-medium w-full text-white bg-black ">
+                            <Button className="font-medium w-full text-white hover:bg-slate-800 border-b border-slate-800 ">
                               Create new
                             </Button>
                           </CommandItem>
@@ -98,7 +140,7 @@ export function IncomeTransaction({ isOpen, onClose }: StatesProps) {
                         </CommandList>
                       </Command>
                     </PopoverContent>
-                  </Popover>
+                  </Popover> */}
                 </div>
                 <div className="flex flex-col space-y-1.5">
                   <Label htmlFor="date">Transaction Date</Label>
@@ -108,17 +150,23 @@ export function IncomeTransaction({ isOpen, onClose }: StatesProps) {
                         variant={"outline"}
                         className={cn(
                           "w-[225px] justify-start text-left font-normal",
-                          !date && "text-muted-foreground",
+                          !transactiondate && "text-muted-foreground",
+                          "border-2",
+                          "border-slate-800",
                         )}
                       >
                         <CalendarIcon className="mr-2 h-4 w-4" />
-                        {date ? format(date, "PPP") : <span>Pick a date</span>}
+                        {transactiondate ? (
+                          format(transactiondate, "PPP")
+                        ) : (
+                          <span>Pick a date</span>
+                        )}
                       </Button>
                     </PopoverTrigger>
-                    <PopoverContent className="w-auto p-0">
+                    <PopoverContent className="w-auto p-0 bg-gray-900 border-2 border-slate-800">
                       <Calendar
                         mode="single"
-                        selected={date}
+                        selected={transactiondate}
                         onSelect={setDate}
                         initialFocus
                       />
@@ -128,16 +176,24 @@ export function IncomeTransaction({ isOpen, onClose }: StatesProps) {
               </div>
             </div>
           </div>
+
+          <DialogFooter className="flex justify-end gap-2 p-3">
+            <Button
+              type="button"
+              className="bg-slate-700 hover:bg-slate-800"
+              onClick={onClose}
+            >
+              Cancel
+            </Button>
+            <Button
+              type="submit"
+              onClick={handleSubmit}
+              className="bg-slate-50 hover:bg-slate-200 text-black"
+            >
+              Create
+            </Button>
+          </DialogFooter>
         </form>
-        <DialogFooter className="flex justify-end gap-2">
-          <Button
-            className="bg-gray-200"
-            onClick={onClose}
-          >
-            Cancel
-          </Button>
-          <Button className="bg-black text-white">Create</Button>
-        </DialogFooter>
       </DialogContent>
     </Dialog>
   )

@@ -1,12 +1,6 @@
 // pages/employees/page.tsx
 import { createServerClient } from "@/lib/supabaseClient"
 
-type Employee = {
-  id: number
-  name: string
-  position: string
-}
-
 export default async function Employees() {
   const supabase = createServerClient()
   const { data: employees, error } = await supabase
