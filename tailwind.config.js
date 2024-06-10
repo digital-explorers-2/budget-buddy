@@ -1,19 +1,26 @@
 /** @type {import('tailwindcss').Config} */
 module.exports = {
+  darkMode: "class", // Enable dark mode using a class
   content: [
     "./app/**/*.{js,ts,jsx,tsx,mdx}",
     "./components/**/*.{js,ts,jsx,tsx,mdx}",
   ],
   theme: {
-    darkMode: "class",
     extend: {
       colors: {
-        background: "hsl(var(--background))",
-        foreground: "hsl(var(--foreground))",
+        background: {
+          light: "hsl(0, 0%, 100%)", // Light mode background color
+          dark: "hsl(0, 0%, 10%)", // Dark mode background color
+        },
+        foreground: {
+          light: "hsl(0, 0%, 0%)", // Light mode text color
+          dark: "hsl(0, 0%, 90%)", // Dark mode text color
+        },
         btn: {
           background: "hsl(var(--btn-background))",
           "background-hover": "hsl(var(--btn-background-hover))",
         },
+        "custom-blue": "#072d48",
       },
       backgroundImage: {
         "finance-gradient":
@@ -24,9 +31,6 @@ module.exports = {
       },
       fontFamily: {
         roboto: ["Roboto", "sans-serif"],
-      },
-      colors: {
-        "custom-blue": "#072d48",
       },
     },
   },

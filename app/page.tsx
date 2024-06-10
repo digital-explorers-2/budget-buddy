@@ -29,6 +29,11 @@ const Home = async () => {
           href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap"
           rel="stylesheet"
         />
+        {/* Add the theme toggle script */}
+        <script
+          src="/theme-toggle.js"
+          defer
+        ></script>
       </Head>
 
       <main className="w-full px-8 bg-finance-gradient">

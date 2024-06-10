@@ -3,7 +3,7 @@
 import React from "react"
 import Logo from "@/components/Logo"
 import AuthButton from "@/components/AuthButton"
-import ThemeToggleButton from "./ui/ThemeToggleButton"
+import ThemeToggleButton from "@/components/ThemeToggleButton"
 import { getUser } from "@/utils/ServerActions/authActions"
 
 const links = [
@@ -41,6 +41,7 @@ const Header = async () => {
           </ul>
           <div className="ml-auto">
             <AuthButton />
+            <ThemeToggleButton />
           </div>
         </nav>
       </div>
