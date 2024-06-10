@@ -1,6 +1,6 @@
 "use client"
 
-import { FC, useState } from "react"
+import { FC } from "react"
 import { Button } from "@/components/ui/button"
 import {
   Table,
@@ -39,19 +39,19 @@ const Transactions: FC = () => {
   ]
 
   return (
-    <div className="flex flex-col min-h-screen w-full  ">
+    <div className="flex flex-col min-h-screen w-full bg-gray-900 text-white">
       <main className="flex flex-col flex-1 p-4 w-full">
         <h1 className="text-2xl mb-4">Transactions History</h1>
         <div className="flex justify-between mb-4">
           <Button
             variant="outline"
-            className="border-gray-400"
+            className="border-gray-400 text-white"
           >
             + Category
           </Button>
           <Button
             variant="outline"
-            className="border-gray-400"
+            className="border-gray-400 text-white"
           >
             + Type
           </Button>
@@ -62,7 +62,7 @@ const Transactions: FC = () => {
             Export as CSV
           </Button>
         </div>
-        <Table className="bg-white w-full text-black">
+        <Table className="bg-gray-800 w-full text-white">
           <TableHeader>
             <TableRow>
               <TableHead>Description</TableHead>
@@ -74,7 +74,7 @@ const Transactions: FC = () => {
           <TableBody>
             {transactions.length > 0 ? (
               transactions.map(transaction => (
-                <TableRow key={transaction.id}>
+                <TableRow key={transaction.id} className="bg-gray-700 hover:bg-gray-600">
                   <TableCell>{transaction.description}</TableCell>
                   <TableCell>{transaction.date}</TableCell>
                   <TableCell>{transaction.type}</TableCell>
