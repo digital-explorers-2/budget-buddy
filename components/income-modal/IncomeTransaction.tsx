@@ -71,7 +71,7 @@ export function IncomeTransaction({ isOpen, onClose }: StatesProps) {
       open={isOpen}
       onOpenChange={onClose}
     >
-      <DialogContent className=" w-full max-w-[500px] bg-gray-900 border-2 border-slate-800">
+      <DialogContent className=" w-full max-w-[500px] bg-white dark:bg-gray-900 border-2 dark:border-slate-800">
         <DialogHeader>
           <DialogTitle>Create a new income transaction</DialogTitle>
         </DialogHeader>
@@ -84,7 +84,7 @@ export function IncomeTransaction({ isOpen, onClose }: StatesProps) {
                 type="text"
                 value={description}
                 onChange={e => setDescription(e.target.value)}
-                className="bg-gray-900 border-2 border-slate-800 focus:border-indigo-300 focus:ring-indigo-200 focus:ring-opacity-50"
+                className="dark:bg-gray-900 border-2 dark:border-slate-800 focus:border-indigo-300 focus:ring-indigo-200 focus:ring-opacity-50"
               />
 
               <Label htmlFor="amount">Amount</Label>
@@ -95,7 +95,8 @@ export function IncomeTransaction({ isOpen, onClose }: StatesProps) {
                 value={amount}
                 onChange={e => setAmount(parseFloat(e.target.value))}
                 min="0"
-                className="mt-1 block w-full rounded-md bg-gray-900 border-slate-800 focus:border-indigo-300 focus:ring-indigo-200 focus:ring-opacity-50"
+                placeholder="0"
+                className="mt-1 block w-full rounded-md dark:bg-gray-900 dark:border-slate-800 focus:border-indigo-300 focus:ring-indigo-200 focus:ring-opacity-50"
               />
               <div className="flex space-x-4">
                 <div className="flex flex-col space-y-1.5">
@@ -106,7 +107,7 @@ export function IncomeTransaction({ isOpen, onClose }: StatesProps) {
                     value={category}
                     onChange={e => setCategory(e.target.value)}
                     placeholder=""
-                    className="w-full text-left bg-gray-900 border-2 border-slate-800"
+                    className="w-full text-left dark:bg-gray-900 border-2 dark:border-slate-800"
                   ></Input>
                   {/* <Popover>
                     <PopoverTrigger asChild>
@@ -152,7 +153,7 @@ export function IncomeTransaction({ isOpen, onClose }: StatesProps) {
                           "w-[225px] justify-start text-left font-normal",
                           !transactiondate && "text-muted-foreground",
                           "border-2",
-                          "border-slate-800",
+                          "dark:border-slate-800",
                         )}
                       >
                         <CalendarIcon className="mr-2 h-4 w-4" />
@@ -163,7 +164,7 @@ export function IncomeTransaction({ isOpen, onClose }: StatesProps) {
                         )}
                       </Button>
                     </PopoverTrigger>
-                    <PopoverContent className="w-auto p-0 bg-gray-900 border-2 border-slate-800">
+                    <PopoverContent className="w-auto p-0 bg-white dark:bg-gray-900 border-2 dark:border-slate-800">
                       <Calendar
                         mode="single"
                         selected={transactiondate}
@@ -180,7 +181,7 @@ export function IncomeTransaction({ isOpen, onClose }: StatesProps) {
           <DialogFooter className="flex justify-end gap-2 p-3">
             <Button
               type="button"
-              className="bg-slate-700 hover:bg-slate-800"
+              className="bg-slate-100 dark:bg-slate-700 hover:bg-slate-200 dark:hover:bg-slate-800"
               onClick={onClose}
             >
               Cancel
@@ -188,7 +189,7 @@ export function IncomeTransaction({ isOpen, onClose }: StatesProps) {
             <Button
               type="submit"
               onClick={handleSubmit}
-              className="bg-slate-50 hover:bg-slate-200 text-black"
+              className="bg-black dark:bg-slate-50 hover:bg-slate-800 dark:hover:bg-slate-200 text-white dark:text-black"
             >
               Create
             </Button>
