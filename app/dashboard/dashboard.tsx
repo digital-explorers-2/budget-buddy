@@ -104,12 +104,12 @@ export function Dashboard() {
   return (
     <div className="h-full w-full ">
       <div>
-        <div className="flex flex-wrap border-b items-center justify-between gap-6 py-8 p-4 ">
+        <div className="flex flex-wrap border-b dark:border-slate-800 items-center justify-between gap-6 py-8 p-4 ">
           <p className="text-3xl font-bold">Hello, {user?.email}!</p>
           <div className="flex items-center gap-3">
             <Button
               variant="outline"
-              className="border-2 border-green-500 bg-emerald-800 hover:bg-emerald-700"
+              className="text-white border-2 border-green-500 bg-emerald-800 hover:bg-emerald-700"
               onClick={openIncomeModal}
             >
               New Income
@@ -117,7 +117,7 @@ export function Dashboard() {
 
             <Button
               variant="outline"
-              className="border-2 border-red-500 bg-rose-800 hover:bg-rose-700"
+              className="text-white border-2 border-red-500 bg-rose-800 hover:bg-rose-700"
               onClick={openExpenseModal}
             >
               New Expense
@@ -135,7 +135,7 @@ export function Dashboard() {
                 id="date"
                 variant={"outline"}
                 className={cn(
-                  "w-[300px] justify-start border-2 hover:bg-gray-800 text-left font-normal",
+                  "w-[300px] justify-start border-2 dark:border-slate-800 hover:bg-gray-200 hover:dark:bg-gray-800 text-left font-normal",
                   !date && "text-muted-foreground",
                 )}
               >
@@ -155,7 +155,7 @@ export function Dashboard() {
               </Button>
             </PopoverTrigger>
             <PopoverContent
-              className="w-auto p-0 bg-gray-900 border-2"
+              className="w-auto p-0 bg-white dark:bg-gray-900 border-2 dark:border-slate-800"
               align="start"
             >
               <Calendar
@@ -173,7 +173,7 @@ export function Dashboard() {
 
       <div className=" flex w-full flex-col gap-2 p-4">
         <div className="relative flex w-full flex-wrap gap-2 md:flex-nowrap">
-          <Card className="w-full h-25 border-2">
+          <Card className="w-full h-25 border-2 dark:border-slate-800">
             <CardContent className="flex w-full items-center h-25 gap-2 pt-4">
               <TrendingUp className="h-12 w-12 items-center rounded-lg p-2 text-emerald-500 bg-emerald-400/10" />
               <div>
@@ -182,7 +182,7 @@ export function Dashboard() {
               </div>
             </CardContent>
           </Card>
-          <Card className="w-full border-2">
+          <Card className="w-full border-2 dark:border-slate-800">
             <CardContent className="flex w-full h-25 items-center gap-2 pt-4">
               <TrendingDown className="h-12 w-12 items-center rounded-lg p-2 text-red-500 bg-red-400/10" />
               <div>
@@ -191,7 +191,7 @@ export function Dashboard() {
               </div>
             </CardContent>
           </Card>
-          <Card className="w-full border-2">
+          <Card className="w-full border-2 dark:border-slate-800">
             <CardContent className="flex w-full h-25 items-center gap-2 pt-4">
               <Wallet className="h-12 w-12 items-center rounded-lg p-2 text-violet-500 bg-violet-400/10" />
               <div>
@@ -202,7 +202,7 @@ export function Dashboard() {
           </Card>
         </div>
         <div className="flex flex-wrap w-full gap-2 md:flex-nowrap">
-          <Card className="w-full h-80 border-2">
+          <Card className="w-full h-80 border-2 dark:border-slate-800">
             <CardHeader>
               <CardTitle>Income by category</CardTitle>
             </CardHeader>
@@ -211,7 +211,7 @@ export function Dashboard() {
               <p>Try selecting a different period or adding new transactions</p>
             </CardContent>
           </Card>
-          <Card className="w-full h-80 border-2">
+          <Card className="w-full h-80 border-2 dark:border-slate-800">
             <CardHeader>
               <CardTitle>Expenses By Category</CardTitle>
             </CardHeader>
@@ -225,7 +225,7 @@ export function Dashboard() {
 
       <div className="flex flex-col gap-2 p-4">
         <h2 className="text-3xl font-bold">History</h2>
-        <Card className="flex items-center gap-4 p-2 border-2">
+        <Card className="flex items-center gap-4 p-2 border-2 dark:border-slate-800">
           <CardContent className="w-full h-full">
             <Tabs
               defaultValue="year"
@@ -237,13 +237,13 @@ export function Dashboard() {
                   <div className="flex flex-wrap items-center gap-4">
                     <TabsList className="grid w-[200px] grid-cols-2 bg-slate-200 dark:bg-gray-800 gap-1">
                       <TabsTrigger
-                        className="hover:bg-white rounded data-[state=active]:bg-white"
+                        className="hover:bg-white hover:dark:bg-black rounded data-[state=active]:bg-white rounded data-[state=active]:dark:bg-black"
                         value="year"
                       >
                         Year
                       </TabsTrigger>
                       <TabsTrigger
-                        className="hover:bg-white rounded data-[state=active]:bg-white"
+                        className="hover:bg-white hover:dark:bg-black rounded data-[state=active]:bg-white rounded data-[state=active]:dark:bg-black"
                         value="month"
                       >
                         Month
@@ -251,10 +251,10 @@ export function Dashboard() {
                     </TabsList>
 
                     <Select>
-                      <SelectTrigger className="w-[100px] bg-gray-900 border-2 border-slate-800">
+                      <SelectTrigger className="w-[100px] dark:bg-gray-900 border-2 dark:border-slate-800">
                         <SelectValue placeholder="2024" />
                       </SelectTrigger>
-                      <SelectContent className="bg-gray-900 border-2 border-slate-800">
+                      <SelectContent className="bg-white dark:bg-gray-900 border-2 dark:border-slate-800">
                         <SelectGroup>
                           <SelectItem value="year">2024</SelectItem>
                         </SelectGroup>
@@ -263,10 +263,10 @@ export function Dashboard() {
 
                     {activeTab === "month" && (
                       <Select>
-                        <SelectTrigger className="w-[100px] bg-gray-900 border-2 border-slate-800">
+                        <SelectTrigger className="w-[100px] dark:bg-gray-900 border-2 dark:border-slate-800">
                           <SelectValue placeholder="January" />
                         </SelectTrigger>
-                        <SelectContent className="bg-gray-900 border-2 border-slate-800">
+                        <SelectContent className="bg-white dark:bg-gray-900 border-2 dark:border-slate-800">
                           <SelectGroup>
                             <SelectItem value="january">January</SelectItem>
                             <SelectItem value="february">February</SelectItem>
@@ -289,14 +289,14 @@ export function Dashboard() {
                   <div className="flex h-10 gap-2">
                     <Badge
                       variant="outline"
-                      className="flex gap-2 bg-gray-900 border-2 border-slate-800"
+                      className="flex gap-2 dark:bg-gray-900 border-2 dark:border-slate-800 text-sm"
                     >
                       <div className="h-4 w-4 rounded-full bg-emerald-500"></div>
                       Income
                     </Badge>
                     <Badge
                       variant="outline"
-                      className="flex gap-2 bg-gray-900 border-2 border-slate-800"
+                      className="flex gap-2 dark:bg-gray-900 border-2 dark:border-slate-800 text-sm"
                     >
                       <div className="h-4 w-4 rounded-full bg-red-500"></div>
                       Expense
@@ -309,7 +309,7 @@ export function Dashboard() {
                 value="year"
                 className="w-full h-full"
               >
-                <Card className="flex h-60 items-center border-2">
+                <Card className="flex h-60 items-center border-2 dark:border-slate-800">
                   <CardContent>
                     <p>No data for the selected period</p>
                     <p>
@@ -323,7 +323,7 @@ export function Dashboard() {
                 value="month"
                 className="w-full h-full"
               >
-                <Card className="flex h-60 items-center border-2 border-slate-800">
+                <Card className="flex h-60 items-center border-2 dark:border-slate-800">
                   <CardContent>
                     <p>No data for the selected period</p>
                     <p>

@@ -16,7 +16,7 @@ const links = [
 const Header = async () => {
   const user = await getUser()
   return (
-    <header className="flex items-center border-b border-b-foreground/10 h-16  text-white  fixed top-0 left-0 w-full z-50 bg-custom-blue">
+    <header className="flex items-center border-b dark:border-b-slate-800 h-16  text-white  fixed top-0 left-0 w-full z-50 bg-custom-blue">
       {" "}
       <div className="w-1/5 flex justify-center">
         <Logo />

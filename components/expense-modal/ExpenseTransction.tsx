@@ -79,33 +79,23 @@ export function ExpenseTransaction({ isOpen, onClose }: StatesProps) {
       open={isOpen}
       onOpenChange={onClose}
     >
-      <DialogContent className="w-full max-w-[500px] bg-gray-900 border-2 border-slate-800 text-white">
+      <DialogContent className="w-full max-w-[500px] bg-white dark:bg-gray-900 border-2 dark:border-slate-800">
         <DialogHeader>
           <DialogTitle>Create a new expense transaction</DialogTitle>
         </DialogHeader>
         <form onSubmit={handleSubmit}>
           <div className="grid w-full items-center gap-4">
             <div className="flex flex-col space-y-1.5">
-              <Label
-                htmlFor="description"
-                className="text-white"
-              >
-                Description
-              </Label>
+              <Label htmlFor="description">Description</Label>
               <Input
                 id="description"
                 type="text"
                 placeholder="Transaction description (optional)"
                 value={description}
                 onChange={e => setDescription(e.target.value)}
-                className="bg-gray-900 border-2 border-slate-800 focus:border-indigo-300 focus:ring-indigo-200 focus:ring-opacity-50 text-white placeholder-gray-500"
+                className="dark:bg-gray-900 border-2 dark:border-slate-800 focus:border-indigo-300 focus:ring-indigo-200 focus:ring-opacity-50 placeholder-gray-500"
               />
-              <Label
-                htmlFor="amount"
-                className="text-white"
-              >
-                Amount
-              </Label>
+              <Label htmlFor="amount">Amount</Label>
               <Input
                 id="amount"
                 type="number"
@@ -114,34 +104,24 @@ export function ExpenseTransaction({ isOpen, onClose }: StatesProps) {
                 onChange={e => setAmount(parseFloat(e.target.value))}
                 min="0"
                 placeholder="0"
-                className="mt-1 block w-full rounded-md bg-gray-900 border-2 border-slate-800 focus:border-indigo-300 focus:ring-indigo-200 focus:ring-opacity-50 text-white placeholder-gray-500"
+                className="mt-1 block w-full rounded-md dark:bg-gray-900 border-2 dark:border-slate-800 focus:border-indigo-300 focus:ring-indigo-200 focus:ring-opacity-50 placeholder-gray-500"
               />
-              <Label
-                htmlFor="category"
-                className="text-white"
-              >
-                Category
-              </Label>
+              <Label htmlFor="category">Category</Label>
               <Input
                 id="category"
                 type="text"
                 value={category}
                 onChange={e => setCategory(e.target.value)}
                 placeholder="Enter category"
-                className="bg-gray-900 border-2 border-slate-800 focus:border-indigo-300 focus:ring-indigo-200 focus:ring-opacity-50 text-white placeholder-gray-500"
+                className="dark:bg-gray-900 border-2 dark:border-slate-800 focus:border-indigo-300 focus:ring-indigo-200 focus:ring-opacity-50 placeholder-gray-500"
               />
-              <Label
-                htmlFor="transactiondate"
-                className="text-white"
-              >
-                Transaction Date
-              </Label>
+              <Label htmlFor="transactiondate">Transaction Date</Label>
               <Popover>
                 <PopoverTrigger asChild>
                   <Button
                     variant={"outline"}
                     className={cn(
-                      "w-full justify-start text-left font-normal border-2 border-slate-800",
+                      "w-full justify-start text-left font-normal border-2 dark:border-slate-800",
                       !transactiondate && "text-muted-foreground",
                     )}
                   >
@@ -153,7 +133,7 @@ export function ExpenseTransaction({ isOpen, onClose }: StatesProps) {
                     )}
                   </Button>
                 </PopoverTrigger>
-                <PopoverContent className="w-auto p-0 bg-gray-900 border-2 border-slate-800">
+                <PopoverContent className="w-auto p-0 bg-gray-900 border-2 dark:border-slate-800">
                   <Calendar
                     mode="single"
                     selected={transactiondate}
@@ -167,14 +147,14 @@ export function ExpenseTransaction({ isOpen, onClose }: StatesProps) {
           <DialogFooter className="flex justify-end gap-2 mt-4">
             <Button
               type="button"
-              className="bg-slate-700 hover:bg-slate-800"
+              className="dark:bg-slate-700 hover:dark:bg-slate-800"
               onClick={onClose}
             >
               Cancel
             </Button>
             <Button
               type="submit"
-              className="bg-slate-50 hover:bg-slate-200 text-black"
+              className="dark:bg-slate-50 hover:dark:bg-slate-200 dark:text-black"
             >
               Create
             </Button>
