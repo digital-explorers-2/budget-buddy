@@ -51,6 +51,7 @@ export default function RootLayout({
         <main className="min-h-screen flex flex-col items-stretch w-full mt-16">
           {children}
         </main>
+        -
         <Footer />
       </body>
     </html>
