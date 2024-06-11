@@ -35,4 +35,4 @@
 
 URL can be found below
 
-[Database](https://supabase.com/dashboard/project/bmrxxxosvmvsdnzglyde)
+[Database](https://supabase.com/dashboard/project/juiyhxgyyuiulydwumzu)

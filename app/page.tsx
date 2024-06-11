@@ -1,18 +1,24 @@
 import Head from "next/head"
 import Image from "next/image"
 import Features from "@/components/Features"
-import Testimonials from "@/components/Testimonials"
-import CallToAction from "@/components/callToAction"
 import person from "@/app/public/images/person.png"
 import { Button } from "@/components/ui/button"
-import { getUser } from "@/utils/ServerActions/authActions"
 import Link from "next/link"
+import { createClient } from "@/utils/supabase/server"
+import { redirect } from "next/navigation"
 
 
-const Home = async () => {
-  const user = await getUser()
 
+export default async function ProtectedPage() {
+  const supabase = createClient()
 
+  const {
+    data: { user },
+  } = await supabase.auth.getUser()
+
+  if (!user) {
+    return redirect("/login")
+  }
 
   return (
     <div>
@@ -89,4 +95,4 @@ const Home = async () => {
   )
 }
 
-export default Home
+
