@@ -7,6 +7,7 @@ import { cn } from "@/lib/utils"
 import { addDays, format } from "date-fns"
 import { Calendar as CalendarIcon } from "lucide-react"
 import { DateRange } from "react-day-picker"
+import { Badge } from "@/components/ui/badge"
 import {
   Card,
   CardContent,
@@ -15,6 +16,15 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card"
+import {
+  Select,
+  SelectContent,
+  SelectGroup,
+  SelectItem,
+  SelectLabel,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select"
 import {
   Popover,
   PopoverContent,
@@ -36,6 +46,8 @@ export function Dashboard() {
   const [income, setIncome] = React.useState(0)
   const [expense, setExpense] = React.useState(0)
   const { user } = useUser()
+
+  const [activeTab, setActiveTab] = React.useState("year")
 
   const openExpenseModal = () => {
     setShowExpenseModal(true)
@@ -218,21 +230,81 @@ export function Dashboard() {
             <Tabs
               defaultValue="year"
               className="w-full h-80"
+              onValueChange={setActiveTab}
             >
-              <TabsList className="grid w-[200px] grid-cols-2 bg-gray-800 gap-1">
-                <TabsTrigger
-                  className="hover:bg-black rounded"
-                  value="year"
-                >
-                  Year
-                </TabsTrigger>
-                <TabsTrigger
-                  className="hover:bg-black rounded"
-                  value="month"
-                >
-                  Month
-                </TabsTrigger>
-              </TabsList>
+              <div className="flex flex-col space-y-1.5 p-5 gap-2">
+                <div className="grid grid-flow-row justify-between gap-2 md:grid-flow-col">
+                  <div className="flex flex-wrap items-center gap-4">
+                    <TabsList className="grid w-[200px] grid-cols-2 bg-gray-800 gap-1">
+                      <TabsTrigger
+                        className="hover:bg-black rounded"
+                        value="year"
+                      >
+                        Year
+                      </TabsTrigger>
+                      <TabsTrigger
+                        className="hover:bg-black rounded"
+                        value="month"
+                      >
+                        Month
+                      </TabsTrigger>
+                    </TabsList>
+
+                    <Select>
+                      <SelectTrigger className="w-[100px] bg-gray-900 border-2 border-slate-800">
+                        <SelectValue placeholder="2024" />
+                      </SelectTrigger>
+                      <SelectContent className="bg-gray-900 border-2 border-slate-800">
+                        <SelectGroup>
+                          <SelectItem value="year">2024</SelectItem>
+                        </SelectGroup>
+                      </SelectContent>
+                    </Select>
+
+                    {activeTab === "month" && (
+                      <Select>
+                        <SelectTrigger className="w-[100px] bg-gray-900 border-2 border-slate-800">
+                          <SelectValue placeholder="January" />
+                        </SelectTrigger>
+                        <SelectContent className="bg-gray-900 border-2 border-slate-800">
+                          <SelectGroup>
+                            <SelectItem value="january">January</SelectItem>
+                            <SelectItem value="february">February</SelectItem>
+                            <SelectItem value="march">March</SelectItem>
+                            <SelectItem value="april">April</SelectItem>
+                            <SelectItem value="may">May</SelectItem>
+                            <SelectItem value="june">June</SelectItem>
+                            <SelectItem value="july">July</SelectItem>
+                            <SelectItem value="august">August</SelectItem>
+                            <SelectItem value="september">September</SelectItem>
+                            <SelectItem value="october">October</SelectItem>
+                            <SelectItem value="november">November</SelectItem>
+                            <SelectItem value="december">December</SelectItem>
+                          </SelectGroup>
+                        </SelectContent>
+                      </Select>
+                    )}
+                  </div>
+
+                  <div className="flex h-10 gap-2">
+                    <Badge
+                      variant="outline"
+                      className="flex gap-2 bg-gray-900 border-2 border-slate-800"
+                    >
+                      <div className="h-4 w-4 rounded-full bg-emerald-500"></div>
+                      Income
+                    </Badge>
+                    <Badge
+                      variant="outline"
+                      className="flex gap-2 bg-gray-900 border-2 border-slate-800"
+                    >
+                      <div className="h-4 w-4 rounded-full bg-red-500"></div>
+                      Expense
+                    </Badge>
+                  </div>
+                </div>
+              </div>
+
               <TabsContent
                 value="year"
                 className="w-full h-full"
@@ -251,7 +323,7 @@ export function Dashboard() {
                 value="month"
                 className="w-full h-full"
               >
-                <Card className="flex h-60 items-center">
+                <Card className="flex h-60 items-center border-2 border-slate-800">
                   <CardContent>
                     <p>No data for the selected period</p>
                     <p>
