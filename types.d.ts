@@ -30,6 +30,7 @@ type Transaction = {
   date: string
   type: string
   amount: number
+  category: string
 }
 
 interface StatesProps {

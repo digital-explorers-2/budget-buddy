@@ -8,6 +8,8 @@ import { addDays, format } from "date-fns"
 import { Calendar as CalendarIcon } from "lucide-react"
 import { DateRange } from "react-day-picker"
 import { Badge } from "@/components/ui/badge"
+import { Progress } from "@/components/ui/progress"
+
 import {
   Card,
   CardContent,
@@ -43,6 +45,10 @@ import { supabase } from "@/lib/supabaseClient"
 export function Dashboard() {
   const [showExpenseModal, setShowExpenseModal] = React.useState(false)
   const [showIncomeModal, setShowIncomeModal] = React.useState(false)
+  const [incomeCategories, setIncomeCategories] = React.useState<{ [key: string]: number }>({})
+  const [expenseCategories, setExpenseCategories] = React.useState<{ [key: string]: number }>({})
+
+
   const [income, setIncome] = React.useState(0)
   const [expense, setExpense] = React.useState(0)
   const { user } = useUser()
@@ -70,15 +76,16 @@ export function Dashboard() {
     to: addDays(new Date(2024, 5, 2), 20),
   })
 
+
   const fetchTransactions = async () => {
     const { data: incomeData, error: incomeError } = await supabase
       .from("transaction1")
-      .select("amount")
+      .select("amount, category")
       .eq("type", "income")
 
     const { data: expenseData, error: expenseError } = await supabase
       .from("transaction1")
-      .select("amount")
+      .select("amount, category")
       .eq("type", "expense")
 
     if (incomeError || expenseError) {
@@ -94,12 +101,29 @@ export function Dashboard() {
       )
       setIncome(totalIncome)
       setExpense(totalExpense)
+
+      const incomeByCategory = incomeData.reduce((acc: { [key: string]: number }, transaction) => {
+        if (!acc[transaction.category]) acc[transaction.category] = 0;
+        acc[transaction.category] += transaction.amount;
+        return acc
+      }, {})
+
+      const expenseByCategory = expenseData.reduce((acc: { [key: string]: number }, transaction) => {
+        if (!acc[transaction.category]) acc[transaction.category] = 0
+        acc[transaction.category] += transaction.amount
+        return acc
+      }, {})
+
+      setIncomeCategories(incomeByCategory)
+      setExpenseCategories(expenseByCategory)
+
     }
   }
 
   fetchTransactions()
 
   const balance = income - expense
+  const totalIncome = Object.values(incomeCategories).reduce((acc, amount) => acc + amount, 0)
 
   return (
     <div className="h-full w-full ">
@@ -207,8 +231,26 @@ export function Dashboard() {
               <CardTitle>Income by category</CardTitle>
             </CardHeader>
             <CardContent>
-              <p>No data for the selected period</p>
-              <p>Try selecting a different period or adding new transactions</p>
+              {Object.keys(incomeCategories).length > 0 ? (
+                Object.entries(incomeCategories).map(([category, amount]) => (
+                  <div key={category} className="mb-4">
+                    <div className="flex justify-between mb-1">
+                    <span>{category}</span>
+                    <span>{amount.toFixed(2)} €</span>
+                    </div>
+                    <Progress
+                      value={amount / totalIncome * 100}
+                      className="w-full bg-red-500"
+                      
+                    />
+                  </div>
+                ))
+              ) : (
+                <>
+                  <p>No data for the selected period</p>
+                  <p>Try selecting a different period or adding new transactions</p>
+                </>
+              )}
             </CardContent>
           </Card>
           <Card className="w-full h-80 border-2 dark:border-slate-800">
@@ -216,8 +258,27 @@ export function Dashboard() {
               <CardTitle>Expenses By Category</CardTitle>
             </CardHeader>
             <CardContent>
-              <p>No data for the selected period</p>
-              <p>Try selecting a different period or adding new transactions</p>
+              {Object.keys(expenseCategories).length > 0 ? (
+                Object.entries(expenseCategories).map(([category, amount]) => (
+                  <div key={category} className="mb-4">
+                    <div className="flex justify-between mb-1">
+                    <span>{category}</span>
+                    <span>{amount.toFixed(2)} €</span>
+                    </div>
+                    <Progress
+                      value={amount / totalIncome * 100}
+                      className="w-full bg-emerald-500"
+                
+                    />
+                  </div>
+
+                ))
+              ) : (
+                <>
+                  <p>No data for the selected period</p>
+                  <p>Try selecting a different period or adding new transactions</p>
+                </>
+              )}
             </CardContent>
           </Card>
         </div>
