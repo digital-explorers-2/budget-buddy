@@ -1,7 +1,7 @@
 "use client"
 
 import { FC, useState, useEffect } from "react";
-import { createClient } from "@supabase/supabase-js"// Adjust the import according to your file structure
+import { createClient } from "@supabase/supabase-js"
 import { Button } from "@/components/ui/button";
 import {
   Table,
@@ -144,8 +144,8 @@ const Transactions: FC = () => {
               <TableRow>
                 <TableCell colSpan={4} className="text-center">Loading...</TableCell>
               </TableRow>
-            ) : transactions.length > 0 ? (
-              transactions.map(transaction => (
+            ) : filteredTransactions.length > 0 ? (
+              filteredTransactions.map(transaction => (
                 <TableRow key={transaction.id} className="bg-gray-700 hover:bg-gray-600">
                   <TableCell>{transaction.category}</TableCell>
                   <TableCell>{transaction.description}</TableCell>
