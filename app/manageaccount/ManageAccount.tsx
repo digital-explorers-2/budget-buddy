@@ -118,7 +118,7 @@ const ManageAccount: React.FC = () => {
       }
     } catch (error) {
       console.error("Unexpected error creating category:", error)
-      alert(`Unexpected error: ${error.message}`)
+      // alert(`Unexpected error: ${error.message}`)
     }
   }
 
@@ -148,7 +148,7 @@ const ManageAccount: React.FC = () => {
       }
     } catch (error) {
       console.error("Unexpected error deleting category:", error)
-      alert(`Unexpected error: ${error.message}`)
+      // alert(`Unexpected error: ${error.message}`)
     }
   }
 
@@ -172,7 +172,7 @@ const ManageAccount: React.FC = () => {
       }
     } catch (error) {
       console.error("Unexpected error updating currency:", error)
-      alert(`Unexpected error: ${error.message}`)
+      // alert(`Unexpected error: ${error.message}`)
     }
   }
 
@@ -181,7 +181,15 @@ const ManageAccount: React.FC = () => {
       alert("Budget name and amount cannot be empty or zero")
       return
     }
+    if (!user) {
+      alert("User not authenticated")
+      return
+    }
 
+    if (newBudgetName.trim() === "" || newBudgetAmount <= 0) {
+      alert("Budget name and amount cannot be empty or zero")
+      return
+    }
     try {
       // Get the currency ID for the selected currency code
       const { data: currencyData, error: currencyError } = await supabase
@@ -236,7 +244,7 @@ const ManageAccount: React.FC = () => {
       }
     } catch (error) {
       console.error("Unexpected error creating budget:", error)
-      alert(`Unexpected error: ${error.message}`)
+      // alert(`Unexpected error: ${error.message}`)
     }
   }
 
@@ -256,7 +264,7 @@ const ManageAccount: React.FC = () => {
       }
     } catch (error) {
       console.error("Unexpected error deleting budget:", error)
-      alert(`Unexpected error: ${error.message}`)
+      // alert(`Unexpected error: ${error.message}`)
     }
   }
 
