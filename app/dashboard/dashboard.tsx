@@ -41,6 +41,7 @@ import { IncomeTransaction } from "@/components/income-modal/IncomeTransaction"
 import { ExpenseTransaction } from "@/components/expense-modal/ExpenseTransction"
 import { useUser } from "@/hooks/UserContext"
 import { supabase } from "@/lib/supabaseClient"
+import { BarChart } from "recharts"
 
 export function Dashboard() {
   const [showExpenseModal, setShowExpenseModal] = React.useState(false)
@@ -380,6 +381,7 @@ export function Dashboard() {
               >
                 <Card className="flex h-60 items-center border-2 dark:border-slate-800">
                   <CardContent>
+                    <BarChart></BarChart>
                     <p>No data for the selected period</p>
                     <p>
                       Try selecting a different period or adding new
