@@ -106,7 +106,7 @@ const ManageAccount: React.FC = () => {
       }
     } catch (error) {
       console.error("Unexpected error creating category:", error)
-      alert(`Unexpected error: ${error.message}`)
+      
     }
   }
 
@@ -128,7 +128,7 @@ const ManageAccount: React.FC = () => {
       }
     } catch (error) {
       console.error("Unexpected error deleting category:", error)
-      alert(`Unexpected error: ${error.message}`)
+      
     }
   }
 
@@ -157,7 +157,7 @@ const ManageAccount: React.FC = () => {
       }
     } catch (error) {
       console.error("Unexpected error updating category:", error)
-      alert(`Unexpected error: ${error.message}`)
+      
     }
   }
 
@@ -184,7 +184,7 @@ const ManageAccount: React.FC = () => {
       }
     } catch (error) {
       console.error("Unexpected error updating currency:", error)
-      alert(`Unexpected error: ${error.message}`)
+      
     }
   }
 
@@ -229,7 +229,7 @@ const ManageAccount: React.FC = () => {
       }
     } catch (error) {
       console.error("Unexpected error creating budget:", error)
-      alert(`Unexpected error: ${error.message}`)
+      
     }
   }
 
@@ -246,7 +246,7 @@ const ManageAccount: React.FC = () => {
       }
     } catch (error) {
       console.error("Unexpected error deleting budget:", error)
-      alert(`Unexpected error: ${error.message}`)
+      
     }
   }
 
@@ -266,7 +266,7 @@ const ManageAccount: React.FC = () => {
       }
     } catch (error) {
       console.error("Unexpected error updating budget:", error)
-      alert(`Unexpected error: ${error.message}`)
+      
     }
   }
 
@@ -290,7 +290,7 @@ const ManageAccount: React.FC = () => {
       }
     } catch (error) {
       console.error("Unexpected error updating transaction:", error)
-      alert(`Unexpected error: ${error.message}`)
+      
     }
   }
 
