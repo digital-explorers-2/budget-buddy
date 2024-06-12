@@ -53,7 +53,19 @@ import {
   YAxis,
 } from "recharts"
 
-export function Dashboard() {
+interface Props {
+  period: Period
+  setPeriod: (period: Period) => void
+  timeframe: Timeframe
+  setTimeframe: (timeframe: Timeframe) => void
+}
+
+export function Dashboard({
+  period,
+  setPeriod,
+  timeframe,
+  setTimeframe,
+}: Props) {
   const [showExpenseModal, setShowExpenseModal] = React.useState(false)
   const [showIncomeModal, setShowIncomeModal] = React.useState(false)
   const [incomeCategories, setIncomeCategories] = React.useState<{
@@ -62,7 +74,11 @@ export function Dashboard() {
   const [expenseCategories, setExpenseCategories] = React.useState<{
     [key: string]: number
   }>({})
-
+  const [newtimeframe, setNewTimeframe] = React.useState<Timeframe>("month")
+  const [newPeriod, setNewPeriod] = React.useState<Period>({
+    month: new Date().getMonth(),
+    year: new Date().getFullYear(),
+  })
   const [income, setIncome] = React.useState(0)
   const [expense, setExpense] = React.useState(0)
   const { user } = useUser()
@@ -246,7 +262,7 @@ export function Dashboard() {
               <TrendingUp className="h-12 w-12 items-center rounded-lg p-2 text-emerald-500 bg-emerald-400/10" />
               <div>
                 <span>Income</span>
-                <p>{income.toFixed(2)} $</p>
+                <p>{income.toFixed(2)} €</p>
               </div>
             </CardContent>
           </Card>
@@ -255,7 +271,7 @@ export function Dashboard() {
               <TrendingDown className="h-12 w-12 items-center rounded-lg p-2 text-red-500 bg-red-400/10" />
               <div>
                 <span>Expense</span>
-                <p>{expense.toFixed(2)} $</p>
+                <p>{expense.toFixed(2)} €</p>
               </div>
             </CardContent>
           </Card>
@@ -264,7 +280,7 @@ export function Dashboard() {
               <Wallet className="h-12 w-12 items-center rounded-lg p-2 text-violet-500 bg-violet-400/10" />
               <div>
                 <span>Balance</span>
-                <p>{balance.toFixed(2)} $</p>
+                <p>{balance.toFixed(2)} €</p>
               </div>
             </CardContent>
           </Card>
@@ -358,9 +374,11 @@ export function Dashboard() {
         <Card className="flex items-center gap-4 p-2 border-2 dark:border-slate-800">
           <CardContent className="w-full h-full">
             <Tabs
-              defaultValue="year"
+              value={newtimeframe}
+              //defaultValue="year"
               className="w-full h-80"
-              onValueChange={setActiveTab}
+              //onValueChange={setActiveTab}
+              onValueChange={value => setNewTimeframe(value as Timeframe)}
             >
               <div className="flex flex-col space-y-1.5 p-5 gap-2">
                 <div className="grid grid-flow-row justify-between gap-2 md:grid-flow-col">
@@ -391,26 +409,28 @@ export function Dashboard() {
                       </SelectContent>
                     </Select>
 
-                    {activeTab === "month" && (
+                    {newtimeframe === "month" && (
                       <Select>
                         <SelectTrigger className="w-[100px] dark:bg-gray-900 border-2 dark:border-slate-800">
                           <SelectValue placeholder="January" />
                         </SelectTrigger>
                         <SelectContent className="bg-white dark:bg-gray-900 border-2 dark:border-slate-800">
-                          <SelectGroup>
-                            <SelectItem value="january">January</SelectItem>
-                            <SelectItem value="february">February</SelectItem>
-                            <SelectItem value="march">March</SelectItem>
-                            <SelectItem value="april">April</SelectItem>
-                            <SelectItem value="may">May</SelectItem>
-                            <SelectItem value="june">June</SelectItem>
-                            <SelectItem value="july">July</SelectItem>
-                            <SelectItem value="august">August</SelectItem>
-                            <SelectItem value="september">September</SelectItem>
-                            <SelectItem value="october">October</SelectItem>
-                            <SelectItem value="november">November</SelectItem>
-                            <SelectItem value="december">December</SelectItem>
-                          </SelectGroup>
+                          {[0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11].map(month => {
+                            const monthStr = new Date(
+                              newPeriod.year,
+                              month,
+                              1,
+                            ).toLocaleString("default", { month: "long" })
+
+                            return (
+                              <SelectItem
+                                key={month}
+                                value={month.toString()}
+                              >
+                                {monthStr}
+                              </SelectItem>
+                            )
+                          })}
                         </SelectContent>
                       </Select>
                     )}
@@ -465,6 +485,7 @@ export function Dashboard() {
                       dataKey={data => {
                         const { year, month, day } = data
                         const newdate = new Date(year, month, day || 1)
+
                         return newdate.toLocaleDateString("default", {
                           month: "long",
                         })
@@ -498,15 +519,61 @@ export function Dashboard() {
                 value="month"
                 className="w-full h-full"
               >
-                <Card className="flex h-60 items-center border-2 dark:border-slate-800">
-                  <CardContent>
-                    <p>No data for the selected period</p>
-                    <p>
-                      Try selecting a different period or adding new
-                      transactions
-                    </p>
-                  </CardContent>
-                </Card>
+                <ResponsiveContainer
+                  width="100%"
+                  height={300}
+                >
+                  <BarChart
+                    height={300}
+                    data={chartdata}
+                    barCategoryGap={5}
+                  >
+                    <CartesianGrid
+                      strokeDasharray="3 3"
+                      strokeOpacity={"0.2"}
+                      vertical={false}
+                    />
+                    <XAxis
+                      stroke="#888888"
+                      fontSize={12}
+                      tickLine={false}
+                      //tickFormatter={newdate =>
+                      //  new Date(newdate).toDateString()
+                      // }
+                      axisLine={false}
+                      padding={{ left: 5, right: 5 }}
+                      dataKey={data => {
+                        const { year, month, day } = data
+                        const newdate = new Date(year, month, day || 1)
+                        return newdate.toLocaleDateString("default", {
+                          day: "2-digit",
+                        })
+                      }}
+                    />
+                    <YAxis
+                      stroke="#888888"
+                      fontSize={12}
+                      tickLine={false}
+                      axisLine={false}
+                    />
+                    <Bar
+                      dataKey="income"
+                      label="Income"
+                      fill="#059669"
+                      radius={4}
+                      className="cursor-pointer"
+                    />
+                    <Bar
+                      dataKey="expense"
+                      label="Expense"
+                      fill="#EF4444"
+                      radius={4}
+                      className="cursor-pointer"
+                    />
+                    <Tooltip cursor={{ opacity: 0.1 }} />
+                  </BarChart>
+                </ResponsiveContainer>
+                <></>
               </TabsContent>
             </Tabs>
           </CardContent>
