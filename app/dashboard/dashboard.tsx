@@ -82,8 +82,12 @@ export function Dashboard({
   const [income, setIncome] = React.useState(0)
   const [expense, setExpense] = React.useState(0)
   const { user } = useUser()
-
   const [activeTab, setActiveTab] = React.useState("year")
+  const [date, setDate] = React.useState<DateRange | undefined>({
+    from: new Date(2024, 5, 2),
+    to: addDays(new Date(2024, 5, 2), 20),
+  })
+  const [currencySymbol, setCurrencySymbol] = React.useState<string>("$") // Default symbol
 
   const openExpenseModal = () => {
     setShowExpenseModal(true)
@@ -100,11 +104,44 @@ export function Dashboard({
   const closeIncomeModal = () => {
     setShowIncomeModal(false)
   }
+ const [date, setDate] = React.useState<DateRange | undefined>({
+   from: new Date(2024, 5, 2),
+   to: addDays(new Date(2024, 5, 2), 20),
+ })
+  React.useEffect(() => {
+    if (user) {
+      fetchUserCurrencySymbol()
+    }
+  }, [user])
 
-  const [date, setDate] = React.useState<DateRange | undefined>({
-    from: new Date(2024, 5, 2),
-    to: addDays(new Date(2024, 5, 2), 20),
-  })
+  const fetchUserCurrencySymbol = async () => {
+    if (!user) return
+
+    const { data: userProfile, error: userProfileError } = await supabase
+      .from("user_profiles")
+      .select("preferred_currency")
+      .eq("user_id", user.id)
+      .single()
+
+    if (userProfileError) {
+      console.error("Error fetching user profile:", userProfileError)
+      return
+    }
+
+    const preferredCurrencyCode = userProfile.preferred_currency
+
+    const { data: currencyData, error: currencyError } = await supabase
+      .from("currency")
+      .select("symbols")
+      .eq("code", preferredCurrencyCode)
+      .single()
+
+    if (currencyError) {
+      console.error("Error fetching currency data:", currencyError)
+    } else {
+      setCurrencySymbol(currencyData.symbols)
+    }
+  }
 
   const fetchTransactions = async () => {
     const currentDate = new Date()
@@ -164,7 +201,9 @@ export function Dashboard({
     }
   }
 
-  fetchTransactions()
+  React.useEffect(() => {
+    fetchTransactions()
+  }, [])
 
   const balance = income - expense
   const totalIncome = Object.values(incomeCategories).reduce(
@@ -278,7 +317,9 @@ export function Dashboard({
               <TrendingUp className="h-12 w-12 items-center rounded-lg p-2 text-emerald-500 bg-emerald-400/10" />
               <div>
                 <span>Income</span>
-                <p>{income.toFixed(2)} €</p>
+                <p>
+                  {income.toFixed(2)} {currencySymbol}
+                </p>
               </div>
             </CardContent>
           </Card>
@@ -287,7 +328,9 @@ export function Dashboard({
               <TrendingDown className="h-12 w-12 items-center rounded-lg p-2 text-red-500 bg-red-400/10" />
               <div>
                 <span>Expense</span>
-                <p>{expense.toFixed(2)} €</p>
+                <p>
+                  {expense.toFixed(2)} {currencySymbol}
+                </p>
               </div>
             </CardContent>
           </Card>
@@ -296,7 +339,9 @@ export function Dashboard({
               <Wallet className="h-12 w-12 items-center rounded-lg p-2 text-violet-500 bg-violet-400/10" />
               <div>
                 <span>Balance</span>
-                <p>{balance.toFixed(2)} €</p>
+                <p>
+                  {balance.toFixed(2)} {currencySymbol}
+                </p>
               </div>
             </CardContent>
           </Card>
@@ -323,7 +368,9 @@ export function Dashboard({
                           {category} (
                           {((amount / totalIncome) * 100).toFixed(0)}%)
                         </span>
-                        <span>{amount.toFixed(2)} $</span>
+                        <span>
+                          {amount.toFixed(2)} {currencySymbol}
+                        </span>
                       </div>
                       <Progress
                         data-value={(amount / totalIncome) * 100}
@@ -363,7 +410,9 @@ export function Dashboard({
                           {category} (
                           {((amount / totalExpense) * 100).toFixed(0)}%)
                         </span>
-                        <span>{amount.toFixed(2)} €</span>
+                        <span>
+                          {amount.toFixed(2)} {currencySymbol}
+                        </span>
                       </div>
                       <Progress
                         data-value={(amount / totalExpense) * 100}

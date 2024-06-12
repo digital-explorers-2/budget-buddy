@@ -1,26 +1,17 @@
 "use client"
 
 import * as React from "react"
+import { useRouter } from "next/navigation"
 import useMediaQuery from "../../hooks/use-media-query"
 import { Button } from "@/components/ui/button"
 import {
   Card,
   CardContent,
   CardDescription,
-  CardFooter,
   CardHeader,
   CardTitle,
 } from "@/components/ui/card"
-import {
-  Drawer,
-  DrawerClose,
-  DrawerContent,
-  DrawerDescription,
-  DrawerFooter,
-  DrawerHeader,
-  DrawerTitle,
-  DrawerTrigger,
-} from "@/components/ui/drawer"
+import { Drawer, DrawerContent, DrawerTrigger } from "@/components/ui/drawer"
 import {
   Popover,
   PopoverContent,
@@ -36,40 +27,70 @@ import {
 } from "@/components/ui/command"
 
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
+import { supabase } from "@/lib/supabaseClient" // Add this import
+import { useUser } from "@/hooks/UserContext" // Import the useUser hook
 
 type Currency = {
-  value: string
-  label: string
+  id: string
+  code: string
+  name: string
 }
 
-const currencies: Currency[] = [
-  {
-    value: "USD",
-    label: "United States Dollar",
-  },
-  {
-    value: "EUR",
-    label: "Euro",
-  },
-  {
-    value: "GBP",
-    label: "British Pound",
-  },
-  {
-    value: "JPY",
-    label: "Japanese Yen",
-  },
-  {
-    value: "KES",
-    label: "Kenyan Shilling",
-  },
-]
-
 export function SelectCurrency() {
+  const { user } = useUser() // Get the logged-in user
+  const router = useRouter() // Use router for navigation
   const [open, setOpen] = React.useState(false)
   const isDesktop = useMediaQuery("(min-width: 768px)")
   const [selectedCurrency, setSelectedCurrency] =
     React.useState<Currency | null>(null)
+  const [currencies, setCurrencies] = React.useState<Currency[]>([]) // State for currencies
+
+  // Fetch currencies from the database
+  React.useEffect(() => {
+    const fetchCurrencies = async () => {
+      const { data, error } = await supabase
+        .from("currency")
+        .select("id, code, name")
+      if (error) {
+        console.error("Error fetching currencies:", error)
+      } else {
+        setCurrencies(data)
+      }
+    }
+
+    fetchCurrencies()
+  }, [])
+
+  const handleConfirmCurrency = async () => {
+    if (!selectedCurrency) {
+      alert("Please select a currency")
+      return
+    }
+    if (!user) {
+      alert("User not authenticated")
+      return
+    }
+
+    try {
+      const { error } = await supabase
+        .from("user_profiles")
+        .upsert(
+          { user_id: user.id, preferred_currency: selectedCurrency.code },
+          { onConflict: ["user_id"] },
+        )
+
+      if (error) {
+        console.error("Error updating preferred currency:", error)
+        alert(`Failed to update currency: ${error.message}`)
+      } else {
+        alert("Preferred currency updated successfully")
+        router.push("/dashboard") // Navigate to the dashboard
+      }
+    } catch (error) {
+      console.error("Unexpected error updating currency:", error)
+      alert(`Unexpected error: ${error.message}`)
+    }
+  }
 
   if (isDesktop) {
     return (
@@ -77,15 +98,18 @@ export function SelectCurrency() {
         <div className="flex flex-col items-center space-y-4">
           <Avatar>
             <AvatarImage
-              src="https://images.unsplash.com/photo-1494790108377-be9c29b29330"
+              src={
+                user?.avatar_url ||
+                "https://images.unsplash.com/photo-1494790108377-be9c29b29330"
+              }
               alt="User Image"
             />
-            <AvatarFallback>User</AvatarFallback>
+            <AvatarFallback>{user?.name || "User"}</AvatarFallback>
           </Avatar>
         </div>
         <div className="flex flex-col space-y-1.5 items-center justify-center">
           <span>
-            <h1>Welcome, "USER"!</h1>
+            <h1>Welcome, {user?.email || "User"}!</h1>
           </span>
           <span>
             <h3>Let's get started by setting up your currency</h3>
@@ -108,9 +132,9 @@ export function SelectCurrency() {
                   <PopoverTrigger asChild>
                     <Button className="w-full bg-black text-white">
                       {selectedCurrency ? (
-                        <>{selectedCurrency.value}</>
+                        <>{selectedCurrency.code}</>
                       ) : (
-                        <>USD</>
+                        <>Select Currency</>
                       )}
                     </Button>
                   </PopoverTrigger>
@@ -119,6 +143,7 @@ export function SelectCurrency() {
                     align="start"
                   >
                     <CurrencyList
+                      currencies={currencies}
                       setOpen={setOpen}
                       setSelectedCurrency={setSelectedCurrency}
                     />
@@ -131,6 +156,7 @@ export function SelectCurrency() {
             <Button
               variant="outline"
               className="w-full bg-white text-black hover:bg-green-500"
+              onClick={handleConfirmCurrency}
             >
               Confirm
             </Button>
@@ -144,15 +170,18 @@ export function SelectCurrency() {
       <div className="flex flex-col items-center space-y-4">
         <Avatar>
           <AvatarImage
-            src="https://images.unsplash.com/photo-1494790108377-be9c29b29330"
+            src={
+              user?.avatar_url ||
+              "https://images.unsplash.com/photo-1494790108377-be9c29b29330"
+            }
             alt="User Image"
           />
-          <AvatarFallback>User</AvatarFallback>
+          <AvatarFallback>{user?.email || "User"}</AvatarFallback>
         </Avatar>
       </div>
       <div className="flex flex-col space-y-1.5 items-center justify-center">
         <span>
-          <h1>Welcome, "USER"!</h1>
+          <h1>Welcome, {user?.email || "User"}!</h1>
         </span>
         <span>
           <h3>Let's get started by setting up your currency</h3>
@@ -178,15 +207,16 @@ export function SelectCurrency() {
                     <DrawerTrigger asChild>
                       <Button className="w-full bg-black text-white">
                         {selectedCurrency ? (
-                          <>{selectedCurrency.value}</>
+                          <>{selectedCurrency.code}</>
                         ) : (
-                          <>USD</>
+                          <>Select Currency</>
                         )}
                       </Button>
                     </DrawerTrigger>
                     <DrawerContent className="">
                       <div className="mt-4 border-t">
                         <CurrencyList
+                          currencies={currencies}
                           setOpen={setOpen}
                           setSelectedCurrency={setSelectedCurrency}
                         />
@@ -199,7 +229,10 @@ export function SelectCurrency() {
           </CardContent>
         </Card>
         <div className="w-full max-w-[900px]">
-          <Button className="w-full bg-black text-white hover:bg-green-500">
+          <Button
+            className="w-full bg-black text-white hover:bg-green-500"
+            onClick={handleConfirmCurrency}
+          >
             Confirm
           </Button>
         </div>
@@ -209,11 +242,13 @@ export function SelectCurrency() {
 }
 
 function CurrencyList({
+  currencies,
   setOpen,
   setSelectedCurrency,
 }: {
+  currencies: Currency[]
   setOpen: (open: boolean) => void
-  setSelectedCurrency: (status: Currency | null) => void
+  setSelectedCurrency: (currency: Currency | null) => void
 }) {
   return (
     <Command>
@@ -221,19 +256,19 @@ function CurrencyList({
       <CommandList>
         <CommandEmpty>No results found.</CommandEmpty>
         <CommandGroup>
-          {currencies.map(status => (
+          {currencies.map(currency => (
             <CommandItem
               className="hover:bg-gray-300"
-              key={status.value}
-              value={status.value}
+              key={currency.id}
+              value={currency.code}
               onSelect={value => {
                 setSelectedCurrency(
-                  currencies.find(priority => priority.value === value) || null,
+                  currencies.find(c => c.code === value) || null,
                 )
                 setOpen(false)
               }}
             >
-              {status.label}
+              {currency.name}
             </CommandItem>
           ))}
         </CommandGroup>
