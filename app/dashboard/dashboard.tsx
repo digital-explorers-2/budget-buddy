@@ -153,14 +153,14 @@ export function Dashboard({
 
     const { data: incomeData, error: incomeError } = await supabase
       .from("transaction1")
-      .select("amount, category")
+      .select("amount, category, transactiondate")
       .eq("type", "income")
       .gte("transactiondate", startDate) // Greater than or equal to the start of the month
       .lte("transactiondate", endDateString) // Less than or equal to the end of the month
 
     const { data: expenseData, error: expenseError } = await supabase
       .from("transaction1")
-      .select("amount, category")
+      .select("amount, category, transactiondate")
       .eq("type", "expense")
       .gte("transactiondate", startDate) // Greater than or equal to the start of the month
       .lte("transactiondate", endDateString) // Less than or equal to the end of the month
@@ -212,8 +212,43 @@ export function Dashboard({
     {
       month: new Date().getMonth(),
       year: new Date().getFullYear(),
+      //expense: expense,
+      //income: income,
+    },
+    {
+      month: new Date().getMonth(),
+    },
+    {
+      month: new Date().getMonth(),
+    },
+    {
+      month: new Date().getMonth(),
+    },
+    {
+      month: new Date().getMonth(),
+    },
+    {
+      month: new Date().getMonth(),
       expense: expense,
       income: income,
+    },
+    {
+      month: new Date().getMonth(),
+    },
+    {
+      month: new Date().getMonth(),
+    },
+    {
+      month: new Date().getMonth(),
+    },
+    {
+      month: new Date().getMonth(),
+    },
+    {
+      month: new Date().getMonth(),
+    },
+    {
+      month: new Date().getMonth(),
     },
   ]
 
@@ -231,6 +266,9 @@ export function Dashboard({
     "November",
     "December",
   ]
+  const dayTickFormatter = (tick: number): string => {
+    return tick.toString().padStart(2, "0")
+  }
 
   const totalExpense = Object.values(expenseCategories).reduce(
     (acc, amount) => acc + amount,
@@ -542,7 +580,6 @@ export function Dashboard({
                       tickFormatter={tick => months[tick]}
                       axisLine={false}
                       padding={{ left: 5, right: 5 }}
-                      dataKey="month"
                     />
                     <YAxis
                       stroke="#888888"
@@ -590,18 +627,9 @@ export function Dashboard({
                       stroke="#888888"
                       fontSize={12}
                       tickLine={false}
-                      //tickFormatter={newdate =>
-                      //  new Date(newdate).toDateString()
-                      // }
+                      tickFormatter={dayTickFormatter}
                       axisLine={false}
                       padding={{ left: 5, right: 5 }}
-                      dataKey={data => {
-                        const { year, month, day } = data
-                        const newdate = new Date(year, month, day || 1)
-                        return newdate.toLocaleDateString("default", {
-                          day: "2-digit",
-                        })
-                      }}
                     />
                     <YAxis
                       stroke="#888888"
