@@ -18,5 +18,4 @@ export default async function mainDashboard() {
       <Dashboard />
     </UserProvider>
   )
-  return <Dashboard />
 }
