@@ -180,6 +180,22 @@ export function Dashboard({
       income: income,
     },
   ]
+
+  const months = [
+    "January",
+    "February",
+    "March",
+    "April",
+    "May",
+    "June",
+    "July",
+    "August",
+    "September",
+    "October",
+    "November",
+    "December",
+  ]
+
   const totalExpense = Object.values(expenseCategories).reduce(
     (acc, amount) => acc + amount,
     0,
@@ -477,19 +493,10 @@ export function Dashboard({
                       stroke="#888888"
                       fontSize={12}
                       tickLine={false}
-                      //tickFormatter={newdate =>
-                      //  new Date(newdate).toDateString()
-                      // }
+                      tickFormatter={tick => months[tick]}
                       axisLine={false}
                       padding={{ left: 5, right: 5 }}
-                      dataKey={data => {
-                        const { year, month, day } = data
-                        const newdate = new Date(year, month, day || 1)
-
-                        return newdate.toLocaleDateString("default", {
-                          month: "long",
-                        })
-                      }}
+                      dataKey="month"
                     />
                     <YAxis
                       stroke="#888888"
