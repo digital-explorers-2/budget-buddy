@@ -409,7 +409,7 @@ export function Dashboard({
                       </div>
                       <Progress
                         data-value={(amount / totalIncome) * 100}
-                        className="w-full bg-red-500"
+                        className="w-full bg-emerald-500"
                         style={{ width: `${(amount / totalIncome) * 100}%` }}
                       />
                     </div>
@@ -451,7 +451,7 @@ export function Dashboard({
                       </div>
                       <Progress
                         data-value={(amount / totalExpense) * 100}
-                        className="w-full bg-emerald-500"
+                        className="w-full bg-red-500"
                         style={{ width: `${(amount / totalExpense) * 100}%` }}
                       />
                     </div>
