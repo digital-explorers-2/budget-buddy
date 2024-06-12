@@ -120,8 +120,8 @@ export function SelectCurrency() {
             <h3>Let's get started by setting up your currency</h3>
           </span>
         </div>
-        <div className="flex flex-col items-center justify-center w-full h-full p-3 gap-5 border-2 border:bg-slate-800">
-          <Card className="w-full h-full max-w-[700px] max-h-[600px] relative z-10 border-2 border:bg-slate-800">
+        <div className="flex flex-col items-center justify-center w-full h-full p-3 gap-5 ">
+          <Card className="w-full h-full max-w-[700px] max-h-[600px] relative z-10 border-2 dark:border-slate-800">
             <CardHeader>
               <CardTitle>Currency</CardTitle>
               <CardDescription>
@@ -135,7 +135,7 @@ export function SelectCurrency() {
                   onOpenChange={setOpen}
                 >
                   <PopoverTrigger asChild>
-                    <Button className="w-full border-2 dark:border:bg-slate-800 text-white">
+                    <Button className="w-full dark:bg-black  dark:text-white">
                       {selectedCurrency ? (
                         <>{selectedCurrency.code}</>
                       ) : (
@@ -144,7 +144,7 @@ export function SelectCurrency() {
                     </Button>
                   </PopoverTrigger>
                   <PopoverContent
-                    className="w-[200px] p-0 dark:bg-slate-800 shadow-md rounded-md text-black"
+                    className="w-[200px] p-0 dark:bg-white shadow-md rounded-md text-black"
                     align="start"
                   >
                     <CurrencyList
@@ -160,7 +160,7 @@ export function SelectCurrency() {
           <div className="w-full max-w-[700px]">
             <Button
               variant="outline"
-              className="w-full dark:bg-slate-900 text-white hover:bg-green-500"
+              className="w-full dark:bg-white dark:text-black hover:bg-green-500"
               onClick={handleConfirmCurrency}
             >
               Confirm
