@@ -104,10 +104,7 @@ export function Dashboard({
   const closeIncomeModal = () => {
     setShowIncomeModal(false)
   }
- const [date, setDate] = React.useState<DateRange | undefined>({
-   from: new Date(2024, 5, 2),
-   to: addDays(new Date(2024, 5, 2), 20),
- })
+
   React.useEffect(() => {
     if (user) {
       fetchUserCurrencySymbol()
