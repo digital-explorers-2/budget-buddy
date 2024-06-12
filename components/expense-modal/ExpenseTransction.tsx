@@ -97,7 +97,7 @@ export function ExpenseTransaction({ isOpen, onClose }: StatesProps) {
           {
             name: newBudgetName,
             totalamount: newBudgetAmount,
-            user_id: user.id, // Ensure `user.id` is available in your component
+            userid: user.id, // Ensure `user.id` is available in your component
             createddate: new Date().toISOString(),
             currency_id: selectedCurrencyId,
           },

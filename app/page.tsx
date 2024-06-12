@@ -52,7 +52,7 @@ export default async function ProtectedPage() {
             <Features />
             <div className="text-center md:text-left mb-5 mt-4">
               {user ? (
-                <Link href="/dashboard">
+                <Link href="/currencyselector">
                   <Button className="bg-green-600 hover:bg-green-600 text-white font-bold py-4 px-8 rounded-lg shadow-md transition duration-200 ease-in-out glow-button text-xl mt-6">
                     Get Started!
                   </Button>
