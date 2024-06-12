@@ -11,7 +11,6 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card"
-import { Drawer, DrawerContent, DrawerTrigger } from "@/components/ui/drawer"
 import {
   Popover,
   PopoverContent,
@@ -27,8 +26,8 @@ import {
 } from "@/components/ui/command"
 
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
-import { supabase } from "@/lib/supabaseClient" // Add this import
-import { useUser } from "@/hooks/UserContext" // Import the useUser hook
+import { supabase } from "@/lib/supabaseClient"
+import { useUser } from "@/hooks/UserContext"
 
 type Currency = {
   id: string
@@ -37,27 +36,33 @@ type Currency = {
 }
 
 export function SelectCurrency() {
-  const { user } = useUser() // Get the logged-in user
-  const router = useRouter() // Use router for navigation
+  const { user } = useUser()
+  const router = useRouter()
   const [open, setOpen] = React.useState(false)
   const isDesktop = useMediaQuery("(min-width: 768px)")
   const [selectedCurrency, setSelectedCurrency] =
     React.useState<Currency | null>(null)
-  const [currencies, setCurrencies] = React.useState<Currency[]>([]) // State for currencies
+  const [currencies, setCurrencies] = React.useState<Currency[]>([])
+  const [exchangeRates, setExchangeRates] = React.useState<{
+    [key: string]: number
+  }>({})
 
-  // Fetch currencies from the database
   React.useEffect(() => {
     const fetchCurrencies = async () => {
       const { data, error } = await supabase
         .from("currency")
-        .select("id, code, name")
+        .select("id, code, name, exchangerate")
       if (error) {
         console.error("Error fetching currencies:", error)
       } else {
         setCurrencies(data)
+        const rates = data.reduce((acc, curr) => {
+          acc[curr.code] = curr.exchangerate
+          return acc
+        }, {})
+        setExchangeRates(rates)
       }
     }
-
     fetchCurrencies()
   }, [])
 
@@ -84,7 +89,7 @@ export function SelectCurrency() {
         alert(`Failed to update currency: ${error.message}`)
       } else {
         alert("Preferred currency updated successfully")
-        router.push("/dashboard") // Navigate to the dashboard
+        router.push("/dashboard")
       }
     } catch (error) {
       console.error("Unexpected error updating currency:", error)
@@ -139,7 +144,7 @@ export function SelectCurrency() {
                     </Button>
                   </PopoverTrigger>
                   <PopoverContent
-                    className="w-[200px] p-0"
+                    className="w-[200px] p-0 bg-white shadow-md rounded-md text-black"
                     align="start"
                   >
                     <CurrencyList
@@ -155,7 +160,7 @@ export function SelectCurrency() {
           <div className="w-full max-w-[700px]">
             <Button
               variant="outline"
-              className="w-full bg-white text-black hover:bg-green-500"
+              className="w-full bg-blue-500 text-white hover:bg-green-500"
               onClick={handleConfirmCurrency}
             >
               Confirm
@@ -200,11 +205,11 @@ export function SelectCurrency() {
             <form>
               <div className="grid w-full items-center gap-4">
                 <div className="flex flex-col space-y-1.5 relative">
-                  <Drawer
+                  <Popover
                     open={open}
                     onOpenChange={setOpen}
                   >
-                    <DrawerTrigger asChild>
+                    <PopoverTrigger asChild>
                       <Button className="w-full bg-black text-white">
                         {selectedCurrency ? (
                           <>{selectedCurrency.code}</>
@@ -212,17 +217,18 @@ export function SelectCurrency() {
                           <>Select Currency</>
                         )}
                       </Button>
-                    </DrawerTrigger>
-                    <DrawerContent className="">
-                      <div className="mt-4 border-t">
-                        <CurrencyList
-                          currencies={currencies}
-                          setOpen={setOpen}
-                          setSelectedCurrency={setSelectedCurrency}
-                        />
-                      </div>
-                    </DrawerContent>
-                  </Drawer>
+                    </PopoverTrigger>
+                    <PopoverContent
+                      className="w-[200px] p-0 bg-white shadow-md rounded-md text-black"
+                      align="start"
+                    >
+                      <CurrencyList
+                        currencies={currencies}
+                        setOpen={setOpen}
+                        setSelectedCurrency={setSelectedCurrency}
+                      />
+                    </PopoverContent>
+                  </Popover>
                 </div>
               </div>
             </form>
@@ -230,7 +236,7 @@ export function SelectCurrency() {
         </Card>
         <div className="w-full max-w-[900px]">
           <Button
-            className="w-full bg-black text-white hover:bg-green-500"
+            className="w-full bg-blue-500 text-white hover:bg-green-500"
             onClick={handleConfirmCurrency}
           >
             Confirm
@@ -252,13 +258,16 @@ function CurrencyList({
 }) {
   return (
     <Command>
-      <CommandInput placeholder="Filter currency..." />
+      <CommandInput
+        placeholder="Filter currency..."
+        className="text-black"
+      />
       <CommandList>
         <CommandEmpty>No results found.</CommandEmpty>
         <CommandGroup>
           {currencies.map(currency => (
             <CommandItem
-              className="hover:bg-gray-300"
+              className="hover:bg-gray-300 text-black"
               key={currency.id}
               value={currency.code}
               onSelect={value => {
