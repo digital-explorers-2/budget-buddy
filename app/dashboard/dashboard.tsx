@@ -124,6 +124,7 @@ export function Dashboard() {
 
   const balance = income - expense
   const totalIncome = Object.values(incomeCategories).reduce((acc, amount) => acc + amount, 0)
+  const totalExpense = Object.values(expenseCategories).reduce((acc, amount) => acc + amount, 0)
 
   return (
     <div className="h-full w-full ">
@@ -267,13 +268,13 @@ export function Dashboard() {
                 .map(([category, amount]) => (
                   <div key={category} className="mb-4">
                     <div className="flex justify-between mb-1">
-                    <span>{category} ({((amount / totalIncome) * 100).toFixed(0)}%)</span>
+                    <span>{category} ({((amount / totalExpense) * 100).toFixed(0)}%)</span>
                     <span>{amount.toFixed(2)} €</span>
                     </div>
                     <Progress
-                      data-value={amount / totalIncome * 100}
+                      data-value={amount / totalExpense * 100}
                       className="w-full bg-emerald-500"
-                      style={{ width: `${amount / totalIncome * 100}%` }}
+                      style={{ width: `${amount / totalExpense * 100}%` }}
                 
                     />
                   </div>
