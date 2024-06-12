@@ -230,18 +230,20 @@ export function Dashboard() {
             <CardHeader>
               <CardTitle>Income by category</CardTitle>
             </CardHeader>
-            <CardContent>
+            <CardContent className="overflow-auto scrollbar" style={{ maxHeight: '200px' }}>
               {Object.keys(incomeCategories).length > 0 ? (
-                Object.entries(incomeCategories).map(([category, amount]) => (
+                Object.entries(incomeCategories)
+                .sort((a, b) => b[1] - a[1])
+                .map(([category, amount]) => (
                   <div key={category} className="mb-4">
                     <div className="flex justify-between mb-1">
-                    <span>{category}</span>
-                    <span>{amount.toFixed(2)} €</span>
+                    <span>{category} ({((amount / totalIncome) * 100).toFixed(0)}%)</span>
+                    <span>{amount.toFixed(2)} $</span>
                     </div>
                     <Progress
-                      value={amount / totalIncome * 100}
+                      data-value={amount / totalIncome * 100}
                       className="w-full bg-red-500"
-                      
+                      style={{ width: `${amount / totalIncome * 100}%` }}
                     />
                   </div>
                 ))
@@ -253,26 +255,31 @@ export function Dashboard() {
               )}
             </CardContent>
           </Card>
-          <Card className="w-full h-80 border-2 dark:border-slate-800">
+          <Card className="w-full h-80 border-2 dark:border-slate-800 ">
             <CardHeader>
               <CardTitle>Expenses By Category</CardTitle>
             </CardHeader>
-            <CardContent>
+            <CardContent className="overflow-auto scrollbar" style={{ maxHeight: '200px' }}>
               {Object.keys(expenseCategories).length > 0 ? (
-                Object.entries(expenseCategories).map(([category, amount]) => (
+               
+                Object.entries(expenseCategories)
+                .sort((a, b) => b[1] - a[1])
+                .map(([category, amount]) => (
                   <div key={category} className="mb-4">
                     <div className="flex justify-between mb-1">
-                    <span>{category}</span>
+                    <span>{category} ({((amount / totalIncome) * 100).toFixed(0)}%)</span>
                     <span>{amount.toFixed(2)} €</span>
                     </div>
                     <Progress
-                      value={amount / totalIncome * 100}
+                      data-value={amount / totalIncome * 100}
                       className="w-full bg-emerald-500"
+                      style={{ width: `${amount / totalIncome * 100}%` }}
                 
                     />
                   </div>
 
                 ))
+               
               ) : (
                 <>
                   <p>No data for the selected period</p>
