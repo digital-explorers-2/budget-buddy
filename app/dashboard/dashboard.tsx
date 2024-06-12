@@ -32,23 +32,36 @@ import {
   PopoverContent,
   PopoverTrigger,
 } from "@/components/ui/popover"
+import { Skeleton } from "@/components/ui/skeleton"
+import { useQuery } from "@tanstack/react-query"
 import { TrendingDown, TrendingUp, Wallet } from "lucide-react"
 
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 import { Calendar } from "@/components/ui/calendar"
-
+import { Period, Timeframe } from "@/types"
 import { IncomeTransaction } from "@/components/income-modal/IncomeTransaction"
 import { ExpenseTransaction } from "@/components/expense-modal/ExpenseTransction"
 import { useUser } from "@/hooks/UserContext"
 import { supabase } from "@/lib/supabaseClient"
-import { BarChart } from "recharts"
+import {
+  Bar,
+  BarChart,
+  CartesianGrid,
+  ResponsiveContainer,
+  Tooltip,
+  XAxis,
+  YAxis,
+} from "recharts"
 
 export function Dashboard() {
   const [showExpenseModal, setShowExpenseModal] = React.useState(false)
   const [showIncomeModal, setShowIncomeModal] = React.useState(false)
-  const [incomeCategories, setIncomeCategories] = React.useState<{ [key: string]: number }>({})
-  const [expenseCategories, setExpenseCategories] = React.useState<{ [key: string]: number }>({})
-
+  const [incomeCategories, setIncomeCategories] = React.useState<{
+    [key: string]: number
+  }>({})
+  const [expenseCategories, setExpenseCategories] = React.useState<{
+    [key: string]: number
+  }>({})
 
   const [income, setIncome] = React.useState(0)
   const [expense, setExpense] = React.useState(0)
@@ -77,55 +90,84 @@ export function Dashboard() {
     to: addDays(new Date(2024, 5, 2), 20),
   })
 
-
   const fetchTransactions = async () => {
+    const currentDate = new Date()
+    const currentYear = currentDate.getFullYear()
+    const currentMonth = currentDate.getMonth() + 1
+
+    const endDate = new Date(currentYear, currentMonth, 0)
+    const lastDayOfMonth = endDate.getDate()
+
+    const startDate = `${currentYear}-${currentMonth.toString().padStart(2, "0")}-01`
+    const endDateString = `${currentYear}-${currentMonth.toString().padStart(2, "0")}-${lastDayOfMonth.toString().padStart(2, "0")}`
+
     const { data: incomeData, error: incomeError } = await supabase
       .from("transaction1")
       .select("amount, category")
       .eq("type", "income")
+      .gte("transactiondate", startDate) // Greater than or equal to the start of the month
+      .lte("transactiondate", endDateString) // Less than or equal to the end of the month
 
     const { data: expenseData, error: expenseError } = await supabase
       .from("transaction1")
       .select("amount, category")
       .eq("type", "expense")
+      .gte("transactiondate", startDate) // Greater than or equal to the start of the month
+      .lte("transactiondate", endDateString) // Less than or equal to the end of the month
 
     if (incomeError || expenseError) {
       console.error("Error fetching transactions:", incomeError || expenseError)
     } else {
-      const totalIncome = incomeData.reduce(
-        (acc, transaction) => acc + transaction.amount,
-        0,
+      setIncome(
+        incomeData.reduce((acc, transaction) => acc + transaction.amount, 0),
       )
-      const totalExpense = expenseData.reduce(
-        (acc, transaction) => acc + transaction.amount,
-        0,
+      setExpense(
+        expenseData.reduce((acc, transaction) => acc + transaction.amount, 0),
       )
-      setIncome(totalIncome)
-      setExpense(totalExpense)
 
-      const incomeByCategory = incomeData.reduce((acc: { [key: string]: number }, transaction) => {
-        if (!acc[transaction.category]) acc[transaction.category] = 0;
-        acc[transaction.category] += transaction.amount;
-        return acc
-      }, {})
+      const incomeByCategory = incomeData.reduce(
+        (acc: { [key: string]: number }, transaction) => {
+          if (!acc[transaction.category]) acc[transaction.category] = 0
+          acc[transaction.category] += transaction.amount
+          return acc
+        },
+        {},
+      )
 
-      const expenseByCategory = expenseData.reduce((acc: { [key: string]: number }, transaction) => {
-        if (!acc[transaction.category]) acc[transaction.category] = 0
-        acc[transaction.category] += transaction.amount
-        return acc
-      }, {})
+      const expenseByCategory = expenseData.reduce(
+        (acc: { [key: string]: number }, transaction) => {
+          if (!acc[transaction.category]) acc[transaction.category] = 0
+          acc[transaction.category] += transaction.amount
+          return acc
+        },
+        {},
+      )
 
       setIncomeCategories(incomeByCategory)
       setExpenseCategories(expenseByCategory)
-
     }
   }
 
   fetchTransactions()
 
   const balance = income - expense
-  const totalIncome = Object.values(incomeCategories).reduce((acc, amount) => acc + amount, 0)
-  const totalExpense = Object.values(expenseCategories).reduce((acc, amount) => acc + amount, 0)
+  const totalIncome = Object.values(incomeCategories).reduce(
+    (acc, amount) => acc + amount,
+    0,
+  )
+
+  const chartdata = [
+    {
+      month: new Date().getMonth(),
+      year: new Date().getFullYear(),
+      expense: expense,
+      income: income,
+    },
+  ]
+  const totalExpense = Object.values(expenseCategories).reduce(
+    (acc, amount) => acc + amount,
+    0,
+  )
 
   return (
     <div className="h-full w-full ">
@@ -232,27 +274,38 @@ export function Dashboard() {
             <CardHeader>
               <CardTitle>Income by category</CardTitle>
             </CardHeader>
-            <CardContent className="overflow-auto scrollbar" style={{ maxHeight: '200px' }}>
+            <CardContent
+              className="overflow-auto scrollbar"
+              style={{ maxHeight: "200px" }}
+            >
               {Object.keys(incomeCategories).length > 0 ? (
                 Object.entries(incomeCategories)
-                .sort((a, b) => b[1] - a[1])
-                .map(([category, amount]) => (
-                  <div key={category} className="mb-4">
-                    <div className="flex justify-between mb-1">
-                    <span>{category} ({((amount / totalIncome) * 100).toFixed(0)}%)</span>
-                    <span>{amount.toFixed(2)} $</span>
+                  .sort((a, b) => b[1] - a[1])
+                  .map(([category, amount]) => (
+                    <div
+                      key={category}
+                      className="mb-4"
+                    >
+                      <div className="flex justify-between mb-1">
+                        <span>
+                          {category} (
+                          {((amount / totalIncome) * 100).toFixed(0)}%)
+                        </span>
+                        <span>{amount.toFixed(2)} $</span>
+                      </div>
+                      <Progress
+                        data-value={(amount / totalIncome) * 100}
+                        className="w-full bg-red-500"
+                        style={{ width: `${(amount / totalIncome) * 100}%` }}
+                      />
                     </div>
-                    <Progress
-                      data-value={amount / totalIncome * 100}
-                      className="w-full bg-red-500"
-                      style={{ width: `${amount / totalIncome * 100}%` }}
-                    />
-                  </div>
-                ))
+                  ))
               ) : (
                 <>
                   <p>No data for the selected period</p>
-                  <p>Try selecting a different period or adding new transactions</p>
+                  <p>
+                    Try selecting a different period or adding new transactions
+                  </p>
                 </>
               )}
             </CardContent>
@@ -261,31 +314,38 @@ export function Dashboard() {
             <CardHeader>
               <CardTitle>Expenses By Category</CardTitle>
             </CardHeader>
-            <CardContent className="overflow-auto scrollbar" style={{ maxHeight: '200px' }}>
+            <CardContent
+              className="overflow-auto scrollbar"
+              style={{ maxHeight: "200px" }}
+            >
               {Object.keys(expenseCategories).length > 0 ? (
-               
                 Object.entries(expenseCategories)
-                .sort((a, b) => b[1] - a[1])
-                .map(([category, amount]) => (
-                  <div key={category} className="mb-4">
-                    <div className="flex justify-between mb-1">
-                    <span>{category} ({((amount / totalExpense) * 100).toFixed(0)}%)</span>
-                    <span>{amount.toFixed(2)} €</span>
+                  .sort((a, b) => b[1] - a[1])
+                  .map(([category, amount]) => (
+                    <div
+                      key={category}
+                      className="mb-4"
+                    >
+                      <div className="flex justify-between mb-1">
+                        <span>
+                          {category} (
+                          {((amount / totalExpense) * 100).toFixed(0)}%)
+                        </span>
+                        <span>{amount.toFixed(2)} €</span>
+                      </div>
+                      <Progress
+                        data-value={(amount / totalExpense) * 100}
+                        className="w-full bg-emerald-500"
+                        style={{ width: `${(amount / totalExpense) * 100}%` }}
+                      />
                     </div>
-                    <Progress
-                      data-value={amount / totalExpense * 100}
-                      className="w-full bg-emerald-500"
-                      style={{ width: `${amount / totalExpense * 100}%` }}
-                
-                    />
-                  </div>
-
-                ))
-               
+                  ))
               ) : (
                 <>
                   <p>No data for the selected period</p>
-                  <p>Try selecting a different period or adding new transactions</p>
+                  <p>
+                    Try selecting a different period or adding new transactions
+                  </p>
                 </>
               )}
             </CardContent>
@@ -379,16 +439,60 @@ export function Dashboard() {
                 value="year"
                 className="w-full h-full"
               >
-                <Card className="flex h-60 items-center border-2 dark:border-slate-800">
-                  <CardContent>
-                    <BarChart></BarChart>
-                    <p>No data for the selected period</p>
-                    <p>
-                      Try selecting a different period or adding new
-                      transactions
-                    </p>
-                  </CardContent>
-                </Card>
+                <ResponsiveContainer
+                  width="100%"
+                  height={300}
+                >
+                  <BarChart
+                    height={300}
+                    data={chartdata}
+                    barCategoryGap={5}
+                  >
+                    <CartesianGrid
+                      strokeDasharray="3 3"
+                      strokeOpacity={"0.2"}
+                      vertical={false}
+                    />
+                    <XAxis
+                      stroke="#888888"
+                      fontSize={12}
+                      tickLine={false}
+                      //tickFormatter={newdate =>
+                      //  new Date(newdate).toDateString()
+                      // }
+                      axisLine={false}
+                      padding={{ left: 5, right: 5 }}
+                      dataKey={data => {
+                        const { year, month, day } = data
+                        const newdate = new Date(year, month, day || 1)
+                        return newdate.toLocaleDateString("default", {
+                          month: "long",
+                        })
+                      }}
+                    />
+                    <YAxis
+                      stroke="#888888"
+                      fontSize={12}
+                      tickLine={false}
+                      axisLine={false}
+                    />
+                    <Bar
+                      dataKey="income"
+                      label="Income"
+                      fill="#059669"
+                      radius={4}
+                      className="cursor-pointer"
+                    />
+                    <Bar
+                      dataKey="expense"
+                      label="Expense"
+                      fill="#EF4444"
+                      radius={4}
+                      className="cursor-pointer"
+                    />
+                    <Tooltip cursor={{ opacity: 0.1 }} />
+                  </BarChart>
+                </ResponsiveContainer>
               </TabsContent>
               <TabsContent
                 value="month"

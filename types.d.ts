@@ -21,8 +21,6 @@ interface Currency {
   id: number
   name: string
 }
-category: string
-date: string
 
 type Transaction = {
   id: number
@@ -37,3 +35,7 @@ interface StatesProps {
   isOpen: boolean
   onClose: () => void
 }
+
+export type TransactionType = "income" | "expense";
+export type Timeframe = "month" | "year";
+export type Period = { year: number; month: number };
